@@ -24,17 +24,26 @@ public class ElevadorTest extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
 
-        elevador.tomarCono(1);
-        sleep(2000);
-        elevador.soltarAlto(1);
-        sleep(2000);
-        elevador.soltarMedio(1);
-        sleep(2000);
-        elevador.soltarBajo(1);
-        sleep(2000);
+        elevador.tomarCono(0.2);
+        sleep(5000);
+        telemetry.addData("Pulsos:" , robot.motor.getCurrentPosition());
+        telemetry.update();
+        elevador.soltarAlto(0.2);
+        sleep(5000);
+        telemetry.addData("Pulsos:" , robot.motor.getCurrentPosition());
+        telemetry.update();
+        elevador.soltarMedio(0.2);
+        sleep(5000);
+        telemetry.addData("Pulsos:" , robot.motor.getCurrentPosition());
+        telemetry.update();
+        elevador.soltarBajo(0.2);
+        sleep(5000);
+        telemetry.addData("Pulsos:" , robot.motor.getCurrentPosition());
+        telemetry.update();
         elevador.soltarPiso(1);
-        sleep(2000);
-
+        sleep(5000);
+        telemetry.addData("Pulsos:" , robot.motor.getCurrentPosition());
+        telemetry.update();
     }
 
 

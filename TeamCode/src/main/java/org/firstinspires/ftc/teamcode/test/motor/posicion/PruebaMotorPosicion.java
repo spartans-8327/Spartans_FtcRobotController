@@ -23,7 +23,9 @@ public class PruebaMotorPosicion extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
             telemetry.addData("Motor" , "100% -- 1000p");
             telemetry.update();
-            moverseDistancia(1 , 1000);
+            moverseDistanciaMantener(1 , -850);
+            sleep(2000);
+            moverseDistancia(0.1 , 850);
 
     }
 

@@ -9,9 +9,9 @@ public class Elevador {
     Servo servo;
 
     private int pulsosActual = 0;
-    private final int pulsosAlto = 1800; //90cm
-    private final int pulsosMedio = 1200; //59cm
-    private final int pulsosBajo = 660;
+    private final int pulsosAlto = -950; //89cm
+    private final int pulsosMedio = -650; //63cm
+    private final int pulsosBajo = -350;//38cmn
     private final int pulsosPiso = 0;
 
 
