@@ -128,14 +128,16 @@ public class ElevadorProto {
 
     //comentario para commit XDDD
 
-    /*private int arreglarError(int error) {
-        int errorDefinitivo;
-        if (error + posActual > 360) {
+    public int arreglarError(int error) {
+        int errorDefinitivo = 0;
 
-        }
+        errorDefinitivo = (error + posActual > 360)? error -= 360: error;
+        errorDefinitivo = (error + posActual < -360)? error += 360: error;
+
+        return errorDefinitivo;
     }
 
-    private int encontrarPulsosNecesarios(int errorDefinitivo){
+    /*private int encontrarPulsosNecesarios(int errorDefinitivo){
 
     }*/
 

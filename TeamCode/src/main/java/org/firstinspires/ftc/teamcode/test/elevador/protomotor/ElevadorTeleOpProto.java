@@ -28,6 +28,7 @@ public class ElevadorTeleOpProto extends LinearOpMode {
             telemetry.addData("Error" , elevador.encontrarError(270));
 
             telemetry.addData("Error Mínimo" , elevador.errorMinimo(elevador.encontrarError(270)));
+            telemetry.addData("Error Definitivo" , elevador.arreglarError(elevador.errorMinimo(elevador.encontrarError(270))));
 
 
 
