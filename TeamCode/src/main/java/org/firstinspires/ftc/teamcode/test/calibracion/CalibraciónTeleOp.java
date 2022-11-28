@@ -48,7 +48,7 @@ public class CalibraciónTeleOp extends LinearOpMode {
             telemetry.addLine("$$$ CALIBRACIÓN $$$");
             telemetry.addLine("Este programa sirve para que encuentres los pulsos necesarios para cierta acciòn en un programa");
             telemetry.addLine("*** CONTROLES ***");
-            telemetry.addData("Aumentar velocidad" , " Dpad Derecha (G1)");
+            telemetry.addData("Aumentar velocidad" , " Dpad Derecha  (G1)");
             telemetry.addData("Pulsos" , " Dpad Arriba (G1)");
             telemetry.addData("Sumador de pulsos" , " Bumpers (G1)");
             telemetry.addData("Cambiar de acción" , "B");

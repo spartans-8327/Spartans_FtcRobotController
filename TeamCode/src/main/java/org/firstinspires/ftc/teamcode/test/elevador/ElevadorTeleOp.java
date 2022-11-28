@@ -6,24 +6,45 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.domain.Elevador;
 
-@TeleOp(name="Elevador TeleOp", group="Pushbot")
+@TeleOp(name="ElevadorTeleOp", group="Pushbot")
 //@Disabled
 public class ElevadorTeleOp extends LinearOpMode {
     ElevadorTestConfig robot = new ElevadorTestConfig();
+
 
     @Override
     public void runOpMode() {
 
         robot.init(hardwareMap , telemetry);
+        Elevador elevador = new Elevador(robot.motor, robot.servo , 90);
+
         telemetry.update();
-        Elevador elevador = new Elevador(robot.motor , robot.servo);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         while (opModeIsActive()){
-            double stickIzquierdo = -gamepad1.left_stick_y;
 
-            elevador.subir(stickIzquierdo);
+            telemetry.update();
+            double stickIzquierdo_y = -gamepad1.left_stick_y;
+            double stickIzquierdo_x = gamepad1.left_stick_x;
+
+            double stickDerecho_x = gamepad1.right_stick_x;
+            double stickDerecho_y = -gamepad1.right_stick_y;
+
+            if (gamepad1.dpad_up)
+                elevador.irAlto(0.3);
+            else if(gamepad1.dpad_right)
+                elevador.irMedio(0.3);
+            else if (gamepad1.dpad_left)
+                elevador.irBajo(0.3);
+            else if (gamepad1.dpad_down)
+                elevador.irPiso(1);
+
+            if (gamepad1.right_trigger > 0.7)
+                elevador.abrirGarra();
+            else
+                elevador.cerrarGarra();
+
 
 
         }

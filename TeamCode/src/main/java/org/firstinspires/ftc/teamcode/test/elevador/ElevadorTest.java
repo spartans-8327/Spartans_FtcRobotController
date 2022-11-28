@@ -17,33 +17,13 @@ public class ElevadorTest extends LinearOpMode {
 
         robot.init(hardwareMap , telemetry);
         telemetry.update();
-        Elevador elevador = new Elevador(robot.motor , robot.servo);
+        Elevador elevador = new Elevador(robot.motor , robot.servo , 90);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // run until the end of the match (driver presses STOP)
 
-        elevador.tomarCono(0.2);
-        sleep(5000);
-        telemetry.addData("Pulsos:" , robot.motor.getCurrentPosition());
-        telemetry.update();
-        elevador.soltarAlto(0.2);
-        sleep(5000);
-        telemetry.addData("Pulsos:" , robot.motor.getCurrentPosition());
-        telemetry.update();
-        elevador.soltarMedio(0.2);
-        sleep(5000);
-        telemetry.addData("Pulsos:" , robot.motor.getCurrentPosition());
-        telemetry.update();
-        elevador.soltarBajo(0.2);
-        sleep(5000);
-        telemetry.addData("Pulsos:" , robot.motor.getCurrentPosition());
-        telemetry.update();
-        elevador.soltarPiso(1);
-        sleep(5000);
-        telemetry.addData("Pulsos:" , robot.motor.getCurrentPosition());
-        telemetry.update();
+        // run until the end of the match (driver presses STOP)
     }
 
 

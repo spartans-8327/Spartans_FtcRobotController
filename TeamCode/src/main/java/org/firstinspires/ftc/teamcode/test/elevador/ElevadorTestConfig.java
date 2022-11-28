@@ -29,6 +29,7 @@ public class ElevadorTestConfig {
     //para el objeto y en la configracion en el robot
 
     public DcMotor motor = null;
+    public DcMotor motor_2 = null;
     public Servo servo = null;
 
     /* local OpMode members. -- no modificar */
@@ -52,13 +53,14 @@ public class ElevadorTestConfig {
         del robot*/
 
         motor = hwMap.get(DcMotor.class, "motor");
+        motor_2 = hwMap.get(DcMotor.class, "motor_2");
         servo = hwMap.get(Servo.class, "servo");
 
         telemetry.addLine("Motores inicializados...");
 
 
-        //Invertir giro de motores
-        derecho(motor);
+        //Invertir giro de motores chococrispis con leche
+        derecho(motor , motor_2);
         telemetry.addLine("Cambio de giro de motores hecho...");
 
         //Motores al 0%
