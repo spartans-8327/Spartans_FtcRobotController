@@ -12,9 +12,6 @@ public class ChasisAutonomo extends LinearOpMode {
 
     ChasisSimpleConfig_2 robot = new ChasisSimpleConfig_2();
     final int PULSOSPOSICION = 177;
-    int posicionMotorHex = 0;
-    final int SERVOTOMARCUBOS = 0;
-    final int SERVOTIRARCUBOS = 1;
 
 
     @Override
