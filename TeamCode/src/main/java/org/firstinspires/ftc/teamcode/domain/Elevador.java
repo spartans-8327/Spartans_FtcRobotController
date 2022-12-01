@@ -19,7 +19,7 @@ public class Elevador {
     private final int pulsosMoverse = 160;
     private final int pulsosPiso = 0;
 
-    private final int pulsos90 = 480;
+    private final int pulsos90 = 500;
 
     private int posActual; //Posicion de inicio (Puede cambiar)
     private int pulsosGiroAct;
@@ -43,7 +43,7 @@ public class Elevador {
         irMoverse(1);
         int pulsosNecesarios = pulsos90*0 - pulsosGiroAct;
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 
@@ -51,7 +51,7 @@ public class Elevador {
         irMoverse(1);
         int pulsosNecesarios = pulsos90*1 - pulsosGiroAct;
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 
@@ -59,7 +59,7 @@ public class Elevador {
         irMoverse(1);
         int pulsosNecesarios = pulsos90*2 - pulsosGiroAct;
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 
@@ -67,7 +67,7 @@ public class Elevador {
         irMoverse(1);
         int pulsosNecesarios = pulsos90*3 - pulsosGiroAct;
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 

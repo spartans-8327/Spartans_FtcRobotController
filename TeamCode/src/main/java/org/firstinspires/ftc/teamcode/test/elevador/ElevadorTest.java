@@ -42,7 +42,7 @@ public class ElevadorTest extends LinearOpMode {
         elevador.girar_1(1);
         sleep(2000);
 
-        elevador.girar_0(1);
+        elevador.girar_0(0);
         sleep(2000);
 
 
