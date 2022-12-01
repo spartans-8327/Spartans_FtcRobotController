@@ -1,14 +1,11 @@
-package org.firstinspires.ftc.teamcode.test.elevador;
+package org.firstinspires.ftc.teamcode.test.motor.posicion;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-import java.security.SecureRandom;
 
 /**
  * HARDWARE TEMPLATE
@@ -20,8 +17,17 @@ import java.security.SecureRandom;
  * *
  */
 
-public class ElevadorTestConfig {
+public class PruebaMotoresPosicionConfig {
 
+
+    public static double controlesVelocidad (Gamepad gamepad, double velocidad){
+        velocidad = (gamepad.a)? 0 : velocidad;
+        velocidad = (gamepad.x)? 0.3 : velocidad;
+        velocidad = (gamepad.y)? 0.6 : velocidad;
+        velocidad = (gamepad.b)? 1 : velocidad;
+
+        return velocidad;
+    }
     /**
      * Declaracion de los motores/servo -- modificar
      */
@@ -30,14 +36,13 @@ public class ElevadorTestConfig {
 
     public DcMotor motor = null;
     public DcMotor motor_2 = null;
-    public Servo servo = null;
 
     /* local OpMode members. -- no modificar */
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
 
     /* Constructor -- no modificar */
-    public ElevadorTestConfig() {
+    public PruebaMotoresPosicionConfig() {
 
     }
 
@@ -54,21 +59,16 @@ public class ElevadorTestConfig {
 
         motor = hwMap.get(DcMotor.class, "motor");
         motor_2 = hwMap.get(DcMotor.class, "motor_2");
-        servo = hwMap.get(Servo.class, "servo");
-
         telemetry.addLine("Motores inicializados...");
 
 
-        //Invertir giro de motores chococrispis con leche
-        derecho(motor_2);
-        reversa(motor);
+        //Invertir giro de motores
+        derecho(motor);
         telemetry.addLine("Cambio de giro de motores hecho...");
 
         //Motores al 0%
         motor.setPower(0);
         telemetry.addLine("Motores al 0%...");
-
-        servo.setPosition(0);
 
         //Configurar modo
         usarUsingEncoder(motor);

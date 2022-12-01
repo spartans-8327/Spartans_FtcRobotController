@@ -21,7 +21,7 @@ public class ChasisSimpleConfig_2 {
     public DcMotor atrasDer = null; //2
     public DcMotor atrasIzq = null; //3
 
-    BNO055IMU imu;
+    BNO055IMU imu;//VALDI PUTO
 
 
     HardwareMap hwMap = null;

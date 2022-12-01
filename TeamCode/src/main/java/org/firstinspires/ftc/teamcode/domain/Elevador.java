@@ -1,28 +1,76 @@
 package org.firstinspires.ftc.teamcode.domain;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Elevador {
     DcMotor elevador;
+    DcMotor giroMotor;
 
     Servo servo;
+
+    private LinearOpMode linearOpMode;
 
     private int pulsosActual = 0;
     private final int pulsosAlto = 1800; //90cm
     private final int pulsosMedio = 1200; //59cm
     private final int pulsosBajo = 660;
+    private final int pulsosMoverse = 160;
     private final int pulsosPiso = 0;
 
+    private final int pulsos90 = 480;
+
     private int posActual; //Posicion de inicio (Puede cambiar)
-    private final int pulsos90 = 1;
+    private int pulsosGiroAct;
 
 
-    public Elevador(DcMotor elevador , Servo servo , int posActual){
+    public Elevador(DcMotor elevador , DcMotor giroMotor, Servo servo , int posActual, int posGiroAct, LinearOpMode linearOpMode){
         this.elevador = elevador;
+        this.giroMotor = giroMotor;
         this.servo = servo;
         this.posActual = posActual;
+        this.linearOpMode = linearOpMode;
     }
+
+    public void pruebaPulsos(int potencia, int pulsos){
+        irMoverse(1);
+        moverseDistanciaMantener_2(1, 480);
+        linearOpMode.sleep(10000);
+    }
+
+    public void girar_0(double potencia){
+        irMoverse(1);
+        int pulsosNecesarios = pulsos90*0 - pulsosGiroAct;
+        moverseDistanciaMantener_2(potencia, pulsosNecesarios);
+        pulsosActual = pulsosActual + pulsosNecesarios;
+        irPiso(1);
+    }
+
+    public void girar_1(double potencia){
+        irMoverse(1);
+        int pulsosNecesarios = pulsos90*1 - pulsosGiroAct;
+        moverseDistanciaMantener_2(potencia, pulsosNecesarios);
+        pulsosActual = pulsosActual + pulsosNecesarios;
+        irPiso(1);
+    }
+
+    public void girar_2(double potencia){
+        irMoverse(1);
+        int pulsosNecesarios = pulsos90*2 - pulsosGiroAct;
+        moverseDistanciaMantener_2(potencia, pulsosNecesarios);
+        pulsosActual = pulsosActual + pulsosNecesarios;
+        irPiso(1);
+    }
+
+    public void girar_3(double potencia){
+        irMoverse(1);
+        int pulsosNecesarios = pulsos90*3 - pulsosGiroAct;
+        moverseDistanciaMantener_2(potencia, pulsosNecesarios);
+        pulsosActual = pulsosActual + pulsosNecesarios;
+        irPiso(1);
+    }
+
 
     public void subir(double potencia){
         elevador.setPower(potencia);
@@ -56,6 +104,12 @@ public class Elevador {
         pulsosActual = pulsosActual + pulsosNecesarios;
     }
 
+    public void irMoverse(double potencia){
+        int pulsosNecesarios = pulsosMoverse - pulsosActual;
+        moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        pulsosActual = pulsosActual + pulsosNecesarios;
+    }
+
 
     public void irPiso(double potencia){
         int pulsosNecesarios = pulsosPiso - pulsosActual;
@@ -63,6 +117,7 @@ public class Elevador {
         abrirGarra();
         pulsosActual = pulsosActual + pulsosNecesarios;
     }
+
 
     public void soltarAlto(double potencia){
         int pulsosNecesarios = pulsosAlto - pulsosActual;
@@ -134,63 +189,41 @@ public class Elevador {
     }
 
     private void moverseDistancia_2(double potencia , int distance){
-        elevador.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        giroMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        elevador.setTargetPosition(distance);
+        giroMotor.setTargetPosition(distance);
 
-        elevador.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        giroMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        elevador.setPower(potencia);
+        giroMotor.setPower(potencia);
 
-        while(elevador.isBusy()){
+        while(giroMotor.isBusy()){
 
         }
 
-        elevador.setPower(0);
+        giroMotor.setPower(0);
 
-        elevador.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        giroMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
     private void moverseDistanciaMantener_2(double potencia , int distance){
-        elevador.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        giroMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        elevador.setTargetPosition(distance);
+        giroMotor.setTargetPosition(distance);
 
-        elevador.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        giroMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        elevador.setPower(potencia);
+        giroMotor.setPower(potencia);
 
-        while(elevador.isBusy()){
+        while(giroMotor.isBusy()){
 
         }
 
     }
 
-    public void girarGrados(int gradoMeta){
-        int errorNormal = encontrarError(gradoMeta);
-        int errorMinimo = errorMinimo(errorNormal);
-        int giroCalculado = posActual + errorMinimo;
-        int errorReal;
 
-        if (giroCalculado > 360 || giroCalculado < -360){
-         errorReal = encontrarError(gradoMeta);
-        }
 
-        errorReal = (giroCalculado > 360 || giroCalculado < -360)? errorMinimo: errorNormal;
-    }
 
-    private int encontrarError(int gradoMeta){
-        return gradoMeta - posActual;
-    }
-
-    public int errorMinimo(int error){
-        int errorMinimo = 0;
-
-        errorMinimo = (error > 180)? error -= errorMinimo: error;
-        errorMinimo = (error < 180)? error += errorMinimo: error;
-
-        return  errorMinimo;
-    }
 
 }

@@ -29,7 +29,7 @@ public class PruebaMotorSinEncoderConfig {
         motor = hwMap.get(DcMotor.class, "motor");
         telemetry.addLine("Motores inicializados...");
 
-        derecho(motor);
+        reversa(motor);
         telemetry.addLine("Cambio de giro de motores hecho...");
 
         motor.setPower(0);

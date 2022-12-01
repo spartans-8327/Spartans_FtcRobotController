@@ -16,7 +16,7 @@ public class ElevadorTeleOp extends LinearOpMode {
     public void runOpMode() {
 
         robot.init(hardwareMap , telemetry);
-        Elevador elevador = new Elevador(robot.motor, robot.servo , 90);
+        Elevador elevador = new Elevador(robot.motor, robot.motor_2,  robot.servo , 90, 0, this);
 
         telemetry.update();
 
