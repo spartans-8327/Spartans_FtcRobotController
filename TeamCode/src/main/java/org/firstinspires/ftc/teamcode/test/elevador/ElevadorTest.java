@@ -23,27 +23,26 @@ public class ElevadorTest extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
 
         waitForStart();
-        elevador.girar_0(1);
-        sleep(2000);
+        elevador.irPiso(1);
+        sleep(3000);
 
-        elevador.girar_1(1);
-        sleep(2000);
+        elevador.irBajo(1);
+        sleep(3000);
 
-        elevador.girar_2(1);
-        sleep(2000);
+        elevador.irMedio(1);
+        sleep(3000);
 
-        elevador.girar_3(1);
-        sleep(2000);
+        elevador.irAlto(1);
+        sleep(3000);
 
+        elevador.irMedio(1);
+        sleep(3000);
 
-        elevador.girar_2(1);
-        sleep(2000);
+        elevador.irBajo(1);
+        sleep(3000);
 
-        elevador.girar_1(1);
-        sleep(2000);
-
-        elevador.girar_0(0);
-        sleep(2000);
+        elevador.irPiso(1);
+        sleep(3000);
 
 
 

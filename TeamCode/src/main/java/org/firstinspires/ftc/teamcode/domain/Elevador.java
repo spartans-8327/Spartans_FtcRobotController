@@ -13,9 +13,9 @@ public class Elevador {
     private LinearOpMode linearOpMode;
 
     private int pulsosActual = 0;
-    private final int pulsosAlto = 1800; //90cm
-    private final int pulsosMedio = 1200; //59cm
-    private final int pulsosBajo = 660;
+    private final int pulsosAlto = 1050; //90cm
+    private final int pulsosMedio = 750; //59cm
+    private final int pulsosBajo = 470;
     private final int pulsosMoverse = 160;
     private final int pulsosPiso = 0;
 
