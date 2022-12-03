@@ -13,23 +13,21 @@ public class Elevador {
     private LinearOpMode linearOpMode;
 
     private int pulsosActual = 0;
-    private final int pulsosAlto = 1800; //90cm
-    private final int pulsosMedio = 1200; //59cm
-    private final int pulsosBajo = 660;
+    private final int pulsosAlto = 1130; //90cm
+    private final int pulsosMedio = 850; //59cm
+    private final int pulsosBajo = 570;
     private final int pulsosMoverse = 160;
     private final int pulsosPiso = 0;
 
     private final int pulsos90 = 480;
-
-    private int posActual; //Posicion de inicio (Puede cambiar)
+ //Posicion de inicio (Puede cambiar)
     private int pulsosGiroAct;
 
 
-    public Elevador(DcMotor elevador , DcMotor giroMotor, Servo servo , int posActual, int posGiroAct, LinearOpMode linearOpMode){
+    public Elevador(DcMotor elevador , DcMotor giroMotor, Servo servo, LinearOpMode linearOpMode){
         this.elevador = elevador;
         this.giroMotor = giroMotor;
         this.servo = servo;
-        this.posActual = posActual;
         this.linearOpMode = linearOpMode;
     }
 
@@ -39,11 +37,17 @@ public class Elevador {
         linearOpMode.sleep(10000);
     }
 
+    public void girarManual(double potencia,int pulsos, int tiempo){
+        moverseDistanciaMantener_2(potencia, pulsos);
+        linearOpMode.sleep(tiempo);
+        pulsosGiroAct += pulsos;
+    }
+
     public void girar_0(double potencia){
         irMoverse(1);
         int pulsosNecesarios = pulsos90*0 - pulsosGiroAct;
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 
@@ -51,7 +55,7 @@ public class Elevador {
         irMoverse(1);
         int pulsosNecesarios = pulsos90*1 - pulsosGiroAct;
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 
@@ -59,7 +63,7 @@ public class Elevador {
         irMoverse(1);
         int pulsosNecesarios = pulsos90*2 - pulsosGiroAct;
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 
@@ -67,7 +71,7 @@ public class Elevador {
         irMoverse(1);
         int pulsosNecesarios = pulsos90*3 - pulsosGiroAct;
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 
@@ -89,25 +93,25 @@ public class Elevador {
     public void irAlto(double potencia){
         int pulsosNecesarios = pulsosAlto - pulsosActual;
         moverseDistanciaMantener_1(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosActual += pulsosNecesarios;
     }
 
     public void irMedio(double potencia){
         int pulsosNecesarios = pulsosMedio - pulsosActual;
         moverseDistanciaMantener_1(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosActual += pulsosNecesarios;
     }
 
     public void irBajo(double potencia){
         int pulsosNecesarios = pulsosBajo - pulsosActual;
         moverseDistanciaMantener_1(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosActual += pulsosNecesarios;
     }
 
     public void irMoverse(double potencia){
         int pulsosNecesarios = pulsosMoverse - pulsosActual;
         moverseDistanciaMantener_1(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosActual += pulsosNecesarios;
     }
 
 
@@ -115,7 +119,7 @@ public class Elevador {
         int pulsosNecesarios = pulsosPiso - pulsosActual;
         moverseDistanciaMantener_1(potencia, pulsosNecesarios);
         abrirGarra();
-        pulsosActual = pulsosActual + pulsosNecesarios;
+        pulsosActual += pulsosNecesarios;
     }
 
 
@@ -142,6 +146,12 @@ public class Elevador {
     public void soltarPiso(double potencia){
         irPiso(potencia);
         abrirGarra();
+    }
+
+    public void elevadorManual(double potencia,int pulsos,int tiempo){
+        moverseDistanciaMantener_1(potencia, pulsos);
+        linearOpMode.sleep(tiempo);
+        pulsosActual += pulsos;
     }
 
 
