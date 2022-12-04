@@ -16,7 +16,7 @@ public class ElevadorTeleOp extends LinearOpMode {
     public void runOpMode() {
 
         robot.init(hardwareMap , telemetry);
-        Elevador elevador = new Elevador(robot.motor, robot.motor_2,  robot.servo , 90, 0, this);
+        Elevador elevador = new Elevador(robot.motor, robot.motor_2,  robot.servo ,  this);
 
         telemetry.update();
 
@@ -31,13 +31,13 @@ public class ElevadorTeleOp extends LinearOpMode {
             double stickDerecho_x = gamepad1.right_stick_x;
             double stickDerecho_y = -gamepad1.right_stick_y;
 
-            if (gamepad1.dpad_up)
+            if (gamepad2.b)
                 elevador.irAlto(0.3);
-            else if(gamepad1.dpad_right)
+            else if(gamepad2.y)
                 elevador.irMedio(0.3);
-            else if (gamepad1.dpad_left)
+            else if (gamepad2.x)
                 elevador.irBajo(0.3);
-            else if (gamepad1.dpad_down)
+            else if (gamepad2.a)
                 elevador.irPiso(1);
 
             if (gamepad1.right_trigger > 0.7)

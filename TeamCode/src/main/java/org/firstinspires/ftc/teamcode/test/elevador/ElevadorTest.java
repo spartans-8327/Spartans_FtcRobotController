@@ -17,12 +17,13 @@ public class ElevadorTest extends LinearOpMode {
 
         robot.init(hardwareMap , telemetry);
         telemetry.update();
-        Elevador elevador = new Elevador(robot.motor , robot.motor_2, robot.servo , 360, 0,
+        Elevador elevador = new Elevador(robot.motor , robot.motor_2, robot.servo ,
                 this);
 
         // Wait for the game to start (driver presses PLAY)
 
         waitForStart();
+<<<<<<< HEAD
         elevador.irPiso(1);
         sleep(3000);
 
@@ -34,15 +35,39 @@ public class ElevadorTest extends LinearOpMode {
 
         elevador.irAlto(1);
         sleep(3000);
+=======
+        elevador.irBajo(1);
+        sleep(2000);
+
+        elevador.irMoverse(1);
+        sleep(2000);
+
+        elevador.irMedio(1);
+        sleep(2000);
+
+        elevador.irAlto(1);
+        sleep(2000);
+>>>>>>> TeleOpMaster
 
         elevador.irMedio(1);
         sleep(3000);
 
+<<<<<<< HEAD
         elevador.irBajo(1);
         sleep(3000);
 
         elevador.irPiso(1);
         sleep(3000);
+=======
+        elevador.irMedio(1);
+        sleep(2000);
+
+        elevador.irPiso(1);
+        sleep(2000);
+
+        elevador.girar_0(1);
+        sleep(2000);
+>>>>>>> TeleOpMaster
 
 
 
