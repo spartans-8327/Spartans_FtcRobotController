@@ -5,16 +5,20 @@ Si eres parte de otro equipo y deseas usar alguna de nuestras funciones para tu 
 
 ## v1.0 ##
 La función del TeleOp funciona, listo para una competencia.
-- Chasis manual
-  +Control de velocidad
-  +Control de todas las direcciones
+- Chasis manual:
+
+  Control de velocidad
   
-- Elevador semi-automático
-  +Control de todos los niveles de las junction
-  +Control de todos los grados del robot
+  Control de todas las direcciones
+  
+- Elevador semi-automático:
+
+  Control de todos los niveles de las junction
+  
+  Control de todos los grados del robot
 
 - (Aún no hay autónomo)
 
-Próxima versión: 
-- Corregir algunos errores de eficiencia en el control del Elevador (A la hora de elegir la posición en la que ya está)
+-Próxima versión: 
+Corregir algunos errores de eficiencia en el control del Elevador (A la hora de elegir la posición en la que ya está)
 
