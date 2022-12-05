@@ -23,52 +23,6 @@ public class ElevadorTest extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
 
         waitForStart();
-<<<<<<< HEAD
-        elevador.irPiso(1);
-        sleep(3000);
-
-        elevador.irBajo(1);
-        sleep(3000);
-
-        elevador.irMedio(1);
-        sleep(3000);
-
-        elevador.irAlto(1);
-        sleep(3000);
-=======
-        elevador.irBajo(1);
-        sleep(2000);
-
-        elevador.irMoverse(1);
-        sleep(2000);
-
-        elevador.irMedio(1);
-        sleep(2000);
-
-        elevador.irAlto(1);
-        sleep(2000);
->>>>>>> TeleOpMaster
-
-        elevador.irMedio(1);
-        sleep(3000);
-
-<<<<<<< HEAD
-        elevador.irBajo(1);
-        sleep(3000);
-
-        elevador.irPiso(1);
-        sleep(3000);
-=======
-        elevador.irMedio(1);
-        sleep(2000);
-
-        elevador.irPiso(1);
-        sleep(2000);
-
-        elevador.girar_0(1);
-        sleep(2000);
->>>>>>> TeleOpMaster
-
 
 
         // run until the end of the match (driver presses STOP)
