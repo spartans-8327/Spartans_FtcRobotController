@@ -13,17 +13,6 @@ public class Elevador {
     private LinearOpMode linearOpMode;
 
     private int pulsosActual = 0;
-<<<<<<< HEAD
-    private final int pulsosAlto = 1050; //90cm
-    private final int pulsosMedio = 750; //59cm
-    private final int pulsosBajo = 470;
-    private final int pulsosMoverse = 160;
-    private final int pulsosPiso = 0;
-
-    private final int pulsos90 = 500;
-
-    private int posActual; //Posicion de inicio (Puede cambiar)
-=======
     private final int pulsosAlto = 1130; //90cm
     private final int pulsosMedio = 850; //59cm
     private final int pulsosBajo = 570;
@@ -32,7 +21,6 @@ public class Elevador {
 
     private final int pulsos90 = 480;
  //Posicion de inicio (Puede cambiar)
->>>>>>> TeleOpMaster
     private int pulsosGiroAct;
 
 
