@@ -17,9 +17,11 @@ public class ElevadorTest extends LinearOpMode {
 
         robot.init(hardwareMap , telemetry);
         telemetry.update();
-        Elevador elevador = new Elevador(robot.motor , robot.servo , 90);
+        Elevador elevador = new Elevador(robot.motor , robot.motor_2, robot.servo ,
+                this);
 
         // Wait for the game to start (driver presses PLAY)
+
         waitForStart();
 
 

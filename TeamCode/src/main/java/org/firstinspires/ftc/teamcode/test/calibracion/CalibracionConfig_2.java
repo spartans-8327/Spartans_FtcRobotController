@@ -1,82 +1,48 @@
-package org.firstinspires.ftc.teamcode.test.elevador;
+package org.firstinspires.ftc.teamcode.test.calibracion;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import java.security.SecureRandom;
+public class CalibracionConfig_2 {
 
-/**
- * HARDWARE TEMPLATE
- * Usa este template para:
- * -Inicializar tus motores y servos
- * -Sentido de giro de los motores
- * -Modo de uso de los motores
- * <p>
- * *
- */
-
-public class ElevadorTestConfig {
-
-    /**
-     * Declaracion de los motores/servo -- modificar
-     */
-    //Declarar objetos (motores y servos), es recomendable usar el mismo nombre
-    //para el objeto y en la configracion en el robot
 
     public DcMotor motor = null;
     public DcMotor motor_2 = null;
-    public Servo servo = null;
 
-    /* local OpMode members. -- no modificar */
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
 
-    /* Constructor -- no modificar */
-    public ElevadorTestConfig() {
+    public CalibracionConfig_2() {
 
     }
 
-    /**
-     * Inicializar hardware --modificar
-     */
     public void init(HardwareMap ahwMap, Telemetry telemetry) {
-        // Save reference to Hardware map
-        hwMap = ahwMap;
 
-        // Definir e inicializar hardware
-        /*En las comillas (deviceName) debe de ir el nombre que hayas puesto en la configuracion
-        del robot*/
+        hwMap = ahwMap;
 
         motor = hwMap.get(DcMotor.class, "motor");
         motor_2 = hwMap.get(DcMotor.class, "motor_2");
-        servo = hwMap.get(Servo.class, "servo");
 
         telemetry.addLine("Motores inicializados...");
 
+        derecho(motor);
 
-        //Invertir giro de motores chococrispis con leche
-        derecho(motor_2);
-        reversa(motor);
         telemetry.addLine("Cambio de giro de motores hecho...");
+        telemetry.update();
 
-        //Motores al 0%
         motor.setPower(0);
         telemetry.addLine("Motores al 0%...");
+        telemetry.update();
 
-        servo.setPosition(0);
-
-        //Configurar modo
         usarUsingEncoder(motor);
         telemetry.addLine("Motores configurados...");
+        telemetry.update();
 
-        //Mensaje
-        telemetry.addLine("Robot inicilaizado con exito");
-        /** Fin de la configuracion*/
+        telemetry.addData("Hardware", "Inicializado");
+        telemetry.update();
     }
 
 

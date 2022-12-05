@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.test.chasis.teleop;
+package org.firstinspires.ftc.teamcode.TeleOpMaster;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -13,21 +14,26 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.domain.Chasis;
 
-public class ChasisSimpleConfig_2 {
+public class TeleOpMasterConfig {
 
+    //CONTROL HUB
+    public DcMotor motor = null;// 0 ELEVADOR
+    public DcMotor motor_1 = null; //1 GIRO
 
+    //EXPANSION HUB
     public DcMotor enfrenteDer = null; //0
     public DcMotor enfrenteIzq = null; //1
     public DcMotor atrasDer = null; //2
     public DcMotor atrasIzq = null; //3
 
-    BNO055IMU imu;//VALDI PUTO
+    public Servo servo = null;
 
+    BNO055IMU imu;
 
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
 
-    public ChasisSimpleConfig_2() {
+    public TeleOpMasterConfig() {
 
     }
 
@@ -39,7 +45,13 @@ public class ChasisSimpleConfig_2 {
         enfrenteIzq = hwMap.get(DcMotor.class, "enfrenteIzq");
         atrasDer = hwMap.get(DcMotor.class, "atrasDer");
         atrasIzq = hwMap.get(DcMotor.class, "atrasIzq");
+
+        motor = hwMap.get(DcMotor.class, "motor");
+        motor_1 = hwMap.get(DcMotor.class, "motor_1");
+
         telemetry.addLine("Motores inicializados...");
+
+        servo = hwMap.get(Servo.class, "servo");
 
         imu = hwMap.get(BNO055IMU.class, "imu");
 
@@ -55,7 +67,7 @@ public class ChasisSimpleConfig_2 {
 
 
 
-        reversa(atrasIzq , enfrenteIzq);
+        reversa(atrasIzq , enfrenteIzq, motor);
         derecho(atrasDer , enfrenteDer);
 
         telemetry.addLine("Cambio de giro de motores hecho...");

@@ -1,14 +1,11 @@
-package org.firstinspires.ftc.teamcode.test.elevador;
+package org.firstinspires.ftc.teamcode.test.elevador.protomotor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-import java.security.SecureRandom;
 
 /**
  * HARDWARE TEMPLATE
@@ -20,7 +17,7 @@ import java.security.SecureRandom;
  * *
  */
 
-public class ElevadorTestConfig {
+public class ElevadorTestProtoConfig {
 
     /**
      * Declaracion de los motores/servo -- modificar
@@ -29,15 +26,13 @@ public class ElevadorTestConfig {
     //para el objeto y en la configracion en el robot
 
     public DcMotor motor = null;
-    public DcMotor motor_2 = null;
-    public Servo servo = null;
 
     /* local OpMode members. -- no modificar */
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
 
     /* Constructor -- no modificar */
-    public ElevadorTestConfig() {
+    public ElevadorTestProtoConfig() {
 
     }
 
@@ -53,22 +48,17 @@ public class ElevadorTestConfig {
         del robot*/
 
         motor = hwMap.get(DcMotor.class, "motor");
-        motor_2 = hwMap.get(DcMotor.class, "motor_2");
-        servo = hwMap.get(Servo.class, "servo");
 
         telemetry.addLine("Motores inicializados...");
 
 
         //Invertir giro de motores chococrispis con leche
-        derecho(motor_2);
-        reversa(motor);
         telemetry.addLine("Cambio de giro de motores hecho...");
 
         //Motores al 0%
         motor.setPower(0);
         telemetry.addLine("Motores al 0%...");
 
-        servo.setPosition(0);
 
         //Configurar modo
         usarUsingEncoder(motor);
