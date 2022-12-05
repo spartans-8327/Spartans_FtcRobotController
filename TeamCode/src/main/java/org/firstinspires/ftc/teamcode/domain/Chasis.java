@@ -18,6 +18,8 @@ public class Chasis {
     private DcMotor atrasIzq;
     private BNO055IMU imu = null;
 
+
+
     public Chasis(DcMotor enfrenteDer , DcMotor enfrenteIzq , DcMotor atrasDer , DcMotor atrasIzq){
         this.enfrenteDer = enfrenteDer;
         this.enfrenteIzq = enfrenteIzq;
@@ -32,6 +34,15 @@ public class Chasis {
         this.atrasIzq = atrasIzq;
 
         this.imu = imu;
+    }
+
+    public Chasis(DcMotor enfrenteDer , DcMotor enfrenteIzq , DcMotor atrasDer , DcMotor atrasIzq , double posicionX
+                  ,double posicionY){
+        this.enfrenteDer = enfrenteDer;
+        this.enfrenteIzq = enfrenteIzq;
+        this.atrasDer = atrasDer;
+        this.atrasIzq = atrasIzq;
+
     }
 
     public double obtenerAngulo(){
@@ -145,6 +156,14 @@ public class Chasis {
         atrasDer.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         atrasIzq.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+    }
+
+    public void moverseY(double potencia, int pulsos){
+        moverseEnfrente(potencia, pulsos);
+    }
+
+    public void moverseX(double potencia, int pulsos){
+        moverseDerecha(potencia, pulsos);
     }
 
     public void moverseEnfrente(double potencia){
