@@ -37,10 +37,11 @@ public class Elevador {
         linearOpMode.sleep(10000);
     }
 
-    public void girarManual(double potencia,int pulsos, int tiempo){
+    public void girarManual(double potencia,int pulsos, int delay){
         moverseDistanciaMantener_2(potencia, pulsos);
-        linearOpMode.sleep(tiempo);
         pulsosGiroAct += pulsos;
+        linearOpMode.sleep(delay);
+        linearOpMode.telemetry.addLine("Ejecutando Girar Manual");
     }
 
     public void girar_0(double potencia){
@@ -79,19 +80,11 @@ public class Elevador {
         irPiso(1);
     }
 
-
-    public void subir(double potencia){
-        elevador.setPower(potencia);
-    }
-
-    public void bajar(double potencia){
-        elevador.setPower(-potencia);
-    }
-
-    public void tomarCono(double potencia){
-        abrirGarra();
-        irPiso(potencia);
-        cerrarGarra();
+    public void elevarManual(double potencia,int pulsos, int delay){
+        moverseDistanciaMantener_1(potencia, pulsos);
+        pulsosActual += pulsos;
+        linearOpMode.sleep(delay);
+        linearOpMode.telemetry.addLine("Ejecutando elevar Manual");
     }
 
     public void irAlto(double potencia){

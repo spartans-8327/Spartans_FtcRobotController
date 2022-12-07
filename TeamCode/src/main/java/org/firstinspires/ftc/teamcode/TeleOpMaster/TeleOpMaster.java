@@ -95,8 +95,15 @@ public class TeleOpMaster extends LinearOpMode {
             else if (gamepad2.dpad_right)
                 elevador.girar_3(1);
 
-            if (stickIzquierdoX_2 > 0 && stickIzquierdoX_2 < 0.5)
+            if (stickIzquierdoX_2 > 0.5)
                 elevador.girarManual(velocidad , 100 + incrementoGiro , 100);
+            if (stickIzquierdoX_2 < 0.5)
+                elevador.girarManual(velocidad , -100 - incrementoGiro , 100);
+
+            if (stickIzquierdoY_2 > 0.5)
+                elevador.elevarManual(velocidad , 100 + incrementoGiro , 100);
+            if (stickIzquierdoY_2 < 0.5)
+                elevador.elevarManual(velocidad , -100 - incrementoGiro , 100);
 
 
             if (gamepad2.b)
