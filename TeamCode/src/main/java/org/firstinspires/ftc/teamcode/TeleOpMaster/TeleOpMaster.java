@@ -24,6 +24,9 @@ public class TeleOpMaster extends LinearOpMode {
         int incrementoGiro = 200;
         int incrementoElevador = 400;
 
+        int posGiroNum = 0;
+        int posEleNum = 0;
+
         waitForStart();
 
         while (opModeIsActive()){

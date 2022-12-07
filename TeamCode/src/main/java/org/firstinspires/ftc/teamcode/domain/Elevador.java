@@ -44,32 +44,36 @@ public class Elevador {
     }
 
     public void girar_0(double potencia){
-        irMoverse(1);
         int pulsosNecesarios = pulsos90*0 - pulsosGiroAct;
+        if (pulsosNecesarios != 0)
+            irMoverse(1);
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
         pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 
     public void girar_1(double potencia){
-        irMoverse(1);
         int pulsosNecesarios = pulsos90*1 - pulsosGiroAct;
+        if (pulsosNecesarios != 0)
+            irMoverse(1);
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
         pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 
     public void girar_2(double potencia){
-        irMoverse(1);
         int pulsosNecesarios = pulsos90*2 - pulsosGiroAct;
+        if (pulsosNecesarios != 0)
+            irMoverse(1);
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
         pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
     }
 
     public void girar_3(double potencia){
-        irMoverse(1);
         int pulsosNecesarios = pulsos90*3 - pulsosGiroAct;
+        if (pulsosNecesarios != 0)
+            irMoverse(1);
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
         pulsosGiroAct += pulsosNecesarios;
         irPiso(1);
