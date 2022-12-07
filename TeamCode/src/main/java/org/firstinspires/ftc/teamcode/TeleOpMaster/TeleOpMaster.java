@@ -28,13 +28,13 @@ public class TeleOpMaster extends LinearOpMode {
 
         while (opModeIsActive()){
 
+
             incremento = (gamepad1.left_stick_button || gamepad1.right_stick_button) ? 0.7 : 0;
             incrementoGiro = (gamepad2.left_stick_button || gamepad2.right_stick_button)? 200 : 0;
 
             telemetry.addData("Velocidad" , velocidad + incremento * 100 + "%");
 
             double stickIzquierdoY = -gamepad1.left_stick_y;
-
             double stickIzquierdoX = gamepad1.left_stick_x;
 
             double stickDerechoY = -gamepad1.right_stick_y;
@@ -51,6 +51,14 @@ public class TeleOpMaster extends LinearOpMode {
             telemetry.addData("Stic isquierdo X " , stickIzquierdoX);
             telemetry.addData("Stic derecho Y " , stickDerechoY);
             telemetry.addData("Stic derecho X " , stickDerechoX);
+
+            telemetry.addLine("CONTROL 2");
+
+            telemetry.addData("Stic isquierdo 2 Y" , stickIzquierdoY_2);
+            telemetry.addData("Stic isquierdo 2 X " , stickIzquierdoX_2);
+            telemetry.addData("Stic derecho 2 Y " , stickDerechoY_2);
+            telemetry.addData("Stic derecho 2 X " , stickDerechoX_2);
+
             telemetry.update();
 
 
