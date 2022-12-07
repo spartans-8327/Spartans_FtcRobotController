@@ -96,60 +96,45 @@ public class Elevador {
 
     public void irAlto(double potencia){
         int pulsosNecesarios = pulsosAlto - pulsosActual;
-        moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        if (pulsosNecesarios != 0){
+            moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        }
         pulsosActual += pulsosNecesarios;
     }
 
     public void irMedio(double potencia){
         int pulsosNecesarios = pulsosMedio - pulsosActual;
-        moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        if (pulsosNecesarios != 0){
+            moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        }
         pulsosActual += pulsosNecesarios;
     }
+
 
     public void irBajo(double potencia){
         int pulsosNecesarios = pulsosBajo - pulsosActual;
-        moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        if (pulsosNecesarios != 0){
+            moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        }
         pulsosActual += pulsosNecesarios;
     }
 
+
     public void irMoverse(double potencia){
         int pulsosNecesarios = pulsosMoverse - pulsosActual;
-        moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        if (pulsosNecesarios != 0){
+            moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        }
         pulsosActual += pulsosNecesarios;
     }
 
 
     public void irPiso(double potencia){
         int pulsosNecesarios = pulsosPiso - pulsosActual;
-        moverseDistanciaMantener_1(potencia, pulsosNecesarios);
-        abrirGarra();
+        if (pulsosNecesarios != 0){
+            moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        }
         pulsosActual += pulsosNecesarios;
-    }
-
-
-    public void soltarAlto(double potencia){
-        int pulsosNecesarios = pulsosAlto - pulsosActual;
-        moverseDistanciaMantener_1(potencia, pulsosNecesarios);
-        pulsosActual = pulsosActual + pulsosNecesarios;
-    }
-
-    public void soltarMedio(double potencia){
-        int pulsosNecesarios = pulsosMedio - pulsosActual;
-        moverseDistanciaMantener_1(potencia, pulsosNecesarios);
-        abrirGarra();
-        pulsosActual = pulsosActual + pulsosNecesarios;
-    }
-
-    public void soltarBajo(double potencia){
-        int pulsosNecesarios = pulsosBajo - pulsosActual;
-        moverseDistanciaMantener_1(potencia, pulsosNecesarios);
-        abrirGarra();
-        pulsosActual = pulsosActual + pulsosNecesarios;
-    }
-
-    public void soltarPiso(double potencia){
-        irPiso(potencia);
-        abrirGarra();
     }
 
     public void elevadorManual(double potencia,int pulsos,int tiempo){
