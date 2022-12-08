@@ -19,6 +19,6 @@ La función del TeleOp funciona, listo para una competencia.
 
 - (Aún no hay autónomo)
 
--Próxima versión: 
-Corregir algunos errores de eficiencia en el control del Elevador (A la hora de elegir la posición en la que ya está)
-
+## v1.1 ##
+-Bugs al elegir la posición ya actual en el TeleOp (elevador y giro) corregidos.
+-Bug con relación al elevador y el chasis corregido.
