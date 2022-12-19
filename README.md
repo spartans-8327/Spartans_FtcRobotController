@@ -22,3 +22,7 @@ La función del TeleOp funciona, listo para una competencia.
 ## v1.1 ##
 -Bugs al elegir la posición ya actual en el TeleOp (elevador y giro) corregidos.
 -Bug con relación al elevador y el chasis corregido.
+
+## v1.2 ##
+Funcionalidades para calibrar manualmentelos motores del elevador (Giro y elevación)
+También deshabilité programas de prueba que solo estorbaban
