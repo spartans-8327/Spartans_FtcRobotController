@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test.calibracion;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.domain.Chasis;
 import org.firstinspires.ftc.teamcode.test.chasis.teleop.ChasisSimpleConfig_2;
-
+@Disabled
 @TeleOp(name="Calibración Motor TeleOp", group="Pushbot")
 
 public class CalibraciónTeleOp extends LinearOpMode {

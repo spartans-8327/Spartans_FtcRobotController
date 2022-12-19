@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.test.motor.posicion;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.test.motor.sinencoder.PruebaMotorSinEncoderConfig;
 
 @Autonomous(name="PruebaMotorPosicion", group="Pushbot")
-//@Disabled
+@Disabled
 public class PruebaMotorPosicion extends LinearOpMode {
     PruebaMotorSinEncoderConfig robot = new PruebaMotorSinEncoderConfig();
 

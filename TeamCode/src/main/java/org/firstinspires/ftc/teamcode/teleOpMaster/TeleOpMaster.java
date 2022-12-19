@@ -1,17 +1,17 @@
-package org.firstinspires.ftc.teamcode.TeleOpMaster;
+package org.firstinspires.ftc.teamcode.teleOpMaster;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.configuracion.RobotConfigMaster;
 import org.firstinspires.ftc.teamcode.domain.Chasis;
 import org.firstinspires.ftc.teamcode.domain.Elevador;
-import org.firstinspires.ftc.teamcode.test.chasis.teleop.ChasisSimpleConfig_2;
 
 @TeleOp(name="TeleOpMaster", group="Pushbot")
 
 public class TeleOpMaster extends LinearOpMode {
 
-    TeleOpMasterConfig robot = new TeleOpMasterConfig();
+    RobotConfigMaster robot = new RobotConfigMaster();
 
     @Override
     public void runOpMode() {
@@ -20,7 +20,7 @@ public class TeleOpMaster extends LinearOpMode {
         Elevador elevador = new Elevador(robot.motor, robot.motor_1, robot.servo, this);
         telemetry.update();
         final double velocidad = 0.3;
-        double incremento = 0.7;
+        double incremento = 0.5;
         int incrementoGiro = 200;
         int incrementoElevador = 400;
 
@@ -95,17 +95,6 @@ public class TeleOpMaster extends LinearOpMode {
             else if (gamepad2.dpad_right)
                 elevador.girar_3(1);
 
-            if (stickIzquierdoX_2 > 0.5)
-                elevador.girarManual(velocidad , 100 + incrementoGiro , 100);
-            if (stickIzquierdoX_2 < 0.5)
-                elevador.girarManual(velocidad , -100 - incrementoGiro , 100);
-
-            if (stickIzquierdoY_2 > 0.5)
-                elevador.elevarManual(velocidad , 100 + incrementoGiro , 100);
-            if (stickIzquierdoY_2 < 0.5)
-                elevador.elevarManual(velocidad , -100 - incrementoGiro , 100);
-
-
             if (gamepad2.b)
                 elevador.irAlto(1);
             else if (gamepad2.y)
@@ -120,10 +109,12 @@ public class TeleOpMaster extends LinearOpMode {
             else if (stickDerechoX_2 > 0.5 || stickDerechoX_2 == 1)
                 elevador.girarManual(1, 400, 100);
 
-            if (gamepad1.right_trigger > 0.7)
+            if (gamepad2.right_trigger > 0.7) {
                 elevador.abrirGarra();
-            else
+            }
+            else {
                 elevador.cerrarGarra();
+            }
 
         }
 

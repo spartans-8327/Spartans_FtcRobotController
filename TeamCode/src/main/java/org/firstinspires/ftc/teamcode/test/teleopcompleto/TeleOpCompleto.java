@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.test.teleopcompleto;
 
+import androidx.appcompat.app.ActionBar;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,7 +11,7 @@ import org.firstinspires.ftc.teamcode.domain.Chasis;
 //UN SOLO MANDO
 
 @TeleOp(name = "TeleOpCompleto", group = "Pushbot")
-
+@Disabled
 public class TeleOpCompleto extends LinearOpMode {
 
     TeleOpCompletoConfig robot = new TeleOpCompletoConfig();

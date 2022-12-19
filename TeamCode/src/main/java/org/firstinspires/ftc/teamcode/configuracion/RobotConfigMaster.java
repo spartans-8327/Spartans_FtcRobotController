@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeleOpMaster;
+package org.firstinspires.ftc.teamcode.configuracion;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.domain.Chasis;
 
-public class TeleOpMasterConfig {
+public class RobotConfigMaster {
 
     //CONTROL HUB
     public DcMotor motor = null;// 0 ELEVADOR
@@ -33,7 +33,7 @@ public class TeleOpMasterConfig {
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
 
-    public TeleOpMasterConfig() {
+    public RobotConfigMaster() {
 
     }
 

@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.test.servo;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name="PruebaServo", group="Pushbot")
-//@Disabled
+@Disabled
 public class PruebaServo extends LinearOpMode {
 
     PruebaServoConfig robot = new PruebaServoConfig();

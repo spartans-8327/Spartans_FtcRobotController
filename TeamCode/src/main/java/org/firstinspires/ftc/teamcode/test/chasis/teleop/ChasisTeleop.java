@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.test.chasis.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.domain.Chasis;
 
+@Disabled
 @TeleOp(name="ChasisTeleop", group="Pushbot")
 
 public class ChasisTeleop extends LinearOpMode {

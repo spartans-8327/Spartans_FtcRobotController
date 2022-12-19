@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.test.motor.sinencoder;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous(name="PruebaMotorSinEncoder", group="Pushbot")
-//@Disabled
+@Disabled
 public class PruebaMotorSinEncoder extends LinearOpMode {
     PruebaMotorSinEncoderConfig robot = new PruebaMotorSinEncoderConfig();
 

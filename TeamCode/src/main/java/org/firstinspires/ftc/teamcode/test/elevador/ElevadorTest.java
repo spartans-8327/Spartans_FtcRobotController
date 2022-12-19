@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.test.elevador;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -8,7 +9,7 @@ import org.firstinspires.ftc.teamcode.domain.Elevador;
 import org.firstinspires.ftc.teamcode.test.motor.sinencoder.PruebaMotorSinEncoderConfig;
 
 @Autonomous(name="Elevador Test", group="Pushbot")
-//@Disabled
+@Disabled
 public class ElevadorTest extends LinearOpMode {
     ElevadorTestConfig robot = new ElevadorTestConfig();
 

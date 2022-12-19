@@ -16,12 +16,17 @@ public class Elevador {
     private final int pulsosAlto = 1130; //90cm
     private final int pulsosMedio = 850; //59cm
     private final int pulsosBajo = 570;
-    private final int pulsosMoverse = 160;
+    private final int pulsosMoverseCono = 500;
+    private final int pulsosMoverse = 400;
     private final int pulsosPiso = 0;
 
-    private final int pulsos90 = 480;
+    private final int pulsos20pulgadas = 0;
+
+    private final int pulsos90 = 490;
  //Posicion de inicio (Puede cambiar)
     private int pulsosGiroAct;
+
+    private boolean garraCerrada = false;
 
 
     public Elevador(DcMotor elevador , DcMotor giroMotor, Servo servo, LinearOpMode linearOpMode){
@@ -45,39 +50,39 @@ public class Elevador {
     }
 
     public void girar_0(double potencia){
+        boolean estabaEnPsocioninicial = (pulsosActual == 0)? true: false;
         int pulsosNecesarios = pulsos90*0 - pulsosGiroAct;
         if (pulsosNecesarios != 0)
             irMoverse(1);
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
         pulsosGiroAct += pulsosNecesarios;
-        irPiso(1);
     }
 
     public void girar_1(double potencia){
+        boolean estabaEnPsocioninicial = (pulsosActual == 0)? true: false;
         int pulsosNecesarios = pulsos90*1 - pulsosGiroAct;
         if (pulsosNecesarios != 0)
             irMoverse(1);
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
         pulsosGiroAct += pulsosNecesarios;
-        irPiso(1);
     }
 
     public void girar_2(double potencia){
+        boolean estabaEnPsocioninicial = (pulsosActual == 0)? true: false;
         int pulsosNecesarios = pulsos90*2 - pulsosGiroAct;
         if (pulsosNecesarios != 0)
             irMoverse(1);
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
         pulsosGiroAct += pulsosNecesarios;
-        irPiso(1);
     }
 
     public void girar_3(double potencia){
+        boolean estabaEnPsocioninicial = (pulsosActual == 0)? true: false;
         int pulsosNecesarios = pulsos90*3 - pulsosGiroAct;
         if (pulsosNecesarios != 0)
             irMoverse(1);
         moverseDistanciaMantener_2(potencia, pulsosNecesarios);
         pulsosGiroAct += pulsosNecesarios;
-        irPiso(1);
     }
 
     public void elevarManual(double potencia,int pulsos, int delay){
@@ -121,6 +126,14 @@ public class Elevador {
         pulsosActual += pulsosNecesarios;
     }
 
+    public void irMoverseCono(double potencia){
+        int pulsosNecesarios = pulsosMoverseCono - pulsosActual;
+        if (pulsosNecesarios != 0){
+            moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        }
+        pulsosActual += pulsosNecesarios;
+    }
+
 
     public void irPiso(double potencia){
         int pulsosNecesarios = pulsosPiso - pulsosActual;
@@ -140,10 +153,13 @@ public class Elevador {
 
     public void abrirGarra(){
         servo.setPosition(0);
+        garraCerrada = false;
+
     }
 
     public void cerrarGarra(){
         servo.setPosition(1);
+        garraCerrada = true;
     }
 
     private void moverseDistancia_1(double potencia , int distance){

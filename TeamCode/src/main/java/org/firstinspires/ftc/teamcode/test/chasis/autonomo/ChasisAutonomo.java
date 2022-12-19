@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.test.chasis.autonomo;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.domain.*;
 import org.firstinspires.ftc.teamcode.test.chasis.teleop.ChasisSimpleConfig_2;
-
+@Disabled
 @Autonomous(name="ChasisAutonomo", group="Pushbot")
-//@Disabled2
+
 public class ChasisAutonomo extends LinearOpMode {
 
     ChasisSimpleConfig_2 robot = new ChasisSimpleConfig_2();

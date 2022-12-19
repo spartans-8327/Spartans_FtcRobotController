@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.domain.Chasis;
 import org.firstinspires.ftc.teamcode.templates.ConfiguracionHardwareTempl;
 
 @Autonomous(name="GirosPrecisosAutonomo", group="Pushbot")
-//@Disabled
+@Disabled
 public class GirosPrecisos extends LinearOpMode {
 
     GirosPrecisosConfig robot = new GirosPrecisosConfig();

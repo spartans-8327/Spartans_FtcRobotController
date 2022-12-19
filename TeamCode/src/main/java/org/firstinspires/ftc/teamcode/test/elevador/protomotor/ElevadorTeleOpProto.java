@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.test.elevador.protomotor;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @Autonomous(name="ElevadorProtoTest", group="Pushbot")
-//@Disabled
+@Disabled
 public class ElevadorTeleOpProto extends LinearOpMode {
     ElevadorTestProtoConfig robot = new ElevadorTestProtoConfig();
 

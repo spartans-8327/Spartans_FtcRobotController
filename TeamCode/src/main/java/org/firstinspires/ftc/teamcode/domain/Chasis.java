@@ -400,10 +400,10 @@ public class Chasis {
     }
 
     public void moverseDerecha(double potencia){
-        enfrenteDer.setPower(-potencia);
-        enfrenteIzq.setPower(potencia);
-        atrasDer.setPower(potencia);
-        atrasIzq.setPower(-potencia);
+        enfrenteDer.setPower(potencia);
+        enfrenteIzq.setPower(-potencia);
+        atrasDer.setPower(-potencia);
+        atrasIzq.setPower(potencia);
     }
 
     public void moverseIzquierda(double potencia){

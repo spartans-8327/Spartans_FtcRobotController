@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test.motor.encoder;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,7 +9,7 @@ import org.firstinspires.ftc.teamcode.test.motor.sinencoder.PruebaMotorSinEncode
 
 
 @TeleOp(name="PruebaMotorEncoder", group="Pushbot")
-//@Disabled
+@Disabled
 public class PruebaMotorEncoder extends LinearOpMode {
     PruebaMotorSinEncoderConfig robot = new PruebaMotorSinEncoderConfig();
 
