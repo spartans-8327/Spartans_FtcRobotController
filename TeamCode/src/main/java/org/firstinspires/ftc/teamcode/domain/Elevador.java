@@ -13,21 +13,27 @@ public class Elevador {
     private LinearOpMode linearOpMode;
 
     private int pulsosActual = 0;
-    private final int pulsosAlto = 1130; //90cm
-    private final int pulsosMedio = 850; //59cm
-    private final int pulsosBajo = 570;
-    private final int pulsosMoverseCono = 500;
-    private final int pulsosMoverse = 400;
-    private final int pulsosPiso = 0;
+    private final int PULSOSALTO = 1130; //90cm
+    private final int PULSOSMEDIO = 850; //59cm
+    private final int PULSOSBAJO = 570;
+    private final int PULSOSMOVERSECONO = 500;
+    private final int PULSOSMOVERSE = 400;
+    private final int PULSOSPISO = 0;
 
-    private final int pulsos20pulgadas = 0;
-
-    private final int pulsos90 = 490;
+    private final int PULSOS90 = 490;
  //Posicion de inicio (Puede cambiar)
     private int pulsosGiroAct;
 
     private boolean garraCerrada = false;
 
+
+    public Elevador(DcMotor elevador , DcMotor giroMotor, Servo servo, LinearOpMode linearOpMode, int posGiroAct){
+        this.elevador = elevador;
+        this.giroMotor = giroMotor;
+        this.servo = servo;
+        this.linearOpMode = linearOpMode;
+        this.pulsosGiroAct = posGiroAct*PULSOS90;
+    }
 
     public Elevador(DcMotor elevador , DcMotor giroMotor, Servo servo, LinearOpMode linearOpMode){
         this.elevador = elevador;
@@ -50,39 +56,47 @@ public class Elevador {
     }
 
     public void girar_0(double potencia){
-        boolean estabaEnPsocioninicial = (pulsosActual == 0)? true: false;
-        int pulsosNecesarios = pulsos90*0 - pulsosGiroAct;
-        if (pulsosNecesarios != 0)
-            irMoverse(1);
-        moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosGiroAct += pulsosNecesarios;
+        boolean estabaEnPsocioninicial = (pulsosActual == PULSOSPISO)? true: false;
+        int pulsosNecesarios = PULSOS90*0 - pulsosGiroAct;
+        if (pulsosNecesarios != 0) {
+            if (estabaEnPsocioninicial)
+                irMoverseCono(0.8);
+            moverseDistanciaMantener_2(potencia, pulsosNecesarios);
+            pulsosGiroAct += pulsosNecesarios;
+        }
     }
 
     public void girar_1(double potencia){
-        boolean estabaEnPsocioninicial = (pulsosActual == 0)? true: false;
-        int pulsosNecesarios = pulsos90*1 - pulsosGiroAct;
-        if (pulsosNecesarios != 0)
-            irMoverse(1);
-        moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosGiroAct += pulsosNecesarios;
+        boolean estabaEnPsocioninicial = (pulsosActual == PULSOSPISO)? true: false;
+        int pulsosNecesarios = PULSOS90*1 - pulsosGiroAct;
+        if (pulsosNecesarios != 0) {
+            if (estabaEnPsocioninicial)
+                irMoverseCono(0.8);
+            moverseDistanciaMantener_2(potencia, pulsosNecesarios);
+            pulsosGiroAct += pulsosNecesarios;
+        }
     }
 
     public void girar_2(double potencia){
-        boolean estabaEnPsocioninicial = (pulsosActual == 0)? true: false;
-        int pulsosNecesarios = pulsos90*2 - pulsosGiroAct;
-        if (pulsosNecesarios != 0)
-            irMoverse(1);
-        moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosGiroAct += pulsosNecesarios;
+        boolean estabaEnPsocioninicial = (pulsosActual == PULSOSPISO)? true: false;
+        int pulsosNecesarios = PULSOS90*2 - pulsosGiroAct;
+        if (pulsosNecesarios != 0) {
+            if (estabaEnPsocioninicial)
+                irMoverseCono(0.8);
+            moverseDistanciaMantener_2(potencia, pulsosNecesarios);
+            pulsosGiroAct += pulsosNecesarios;
+        }
     }
 
     public void girar_3(double potencia){
-        boolean estabaEnPsocioninicial = (pulsosActual == 0)? true: false;
-        int pulsosNecesarios = pulsos90*3 - pulsosGiroAct;
-        if (pulsosNecesarios != 0)
-            irMoverse(1);
-        moverseDistanciaMantener_2(potencia, pulsosNecesarios);
-        pulsosGiroAct += pulsosNecesarios;
+        boolean estabaEnPsocioninicial = (pulsosActual == PULSOSPISO)? true: false;
+        int pulsosNecesarios = PULSOS90*3 - pulsosGiroAct;
+        if (pulsosNecesarios != 0) {
+            if (estabaEnPsocioninicial)
+                irMoverseCono(0.8);
+            moverseDistanciaMantener_2(potencia, pulsosNecesarios);
+            pulsosGiroAct += pulsosNecesarios;
+        }
     }
 
     public void elevarManual(double potencia,int pulsos, int delay){
@@ -93,7 +107,7 @@ public class Elevador {
     }
 
     public void irAlto(double potencia){
-        int pulsosNecesarios = pulsosAlto - pulsosActual;
+        int pulsosNecesarios = PULSOSALTO - pulsosActual;
         if (pulsosNecesarios != 0){
             moverseDistanciaMantener_1(potencia, pulsosNecesarios);
         }
@@ -101,7 +115,7 @@ public class Elevador {
     }
 
     public void irMedio(double potencia){
-        int pulsosNecesarios = pulsosMedio - pulsosActual;
+        int pulsosNecesarios = PULSOSMEDIO - pulsosActual;
         if (pulsosNecesarios != 0){
             moverseDistanciaMantener_1(potencia, pulsosNecesarios);
         }
@@ -110,7 +124,7 @@ public class Elevador {
 
 
     public void irBajo(double potencia){
-        int pulsosNecesarios = pulsosBajo - pulsosActual;
+        int pulsosNecesarios = PULSOSBAJO - pulsosActual;
         if (pulsosNecesarios != 0){
             moverseDistanciaMantener_1(potencia, pulsosNecesarios);
         }
@@ -119,7 +133,7 @@ public class Elevador {
 
 
     public void irMoverse(double potencia){
-        int pulsosNecesarios = pulsosMoverse - pulsosActual;
+        int pulsosNecesarios = PULSOSMOVERSE - pulsosActual;
         if (pulsosNecesarios != 0){
             moverseDistanciaMantener_1(potencia, pulsosNecesarios);
         }
@@ -127,7 +141,7 @@ public class Elevador {
     }
 
     public void irMoverseCono(double potencia){
-        int pulsosNecesarios = pulsosMoverseCono - pulsosActual;
+        int pulsosNecesarios = PULSOSMOVERSECONO - pulsosActual;
         if (pulsosNecesarios != 0){
             moverseDistanciaMantener_1(potencia, pulsosNecesarios);
         }
@@ -136,7 +150,7 @@ public class Elevador {
 
 
     public void irPiso(double potencia){
-        int pulsosNecesarios = pulsosPiso - pulsosActual;
+        int pulsosNecesarios = PULSOSPISO - pulsosActual;
         if (pulsosNecesarios != 0){
             moverseDistanciaMantener_1(potencia, pulsosNecesarios);
         }
