@@ -62,7 +62,7 @@ public class CalibracionElevacion extends LinearOpMode {
             if (sumadorPulsos >= 10 && sumadorPulsos <= 1000){
                 if(gamepad1.dpad_up){
                     sumadorPulsos = sumadorPulsos*10;
-                    sleep(200);
+                    sleep(300);
                 }
                 sumadorPulsos =(sumadorPulsos < 10 || sumadorPulsos > 1000)? 10 :sumadorPulsos;
             }
@@ -70,11 +70,11 @@ public class CalibracionElevacion extends LinearOpMode {
             //SUMA DE PUNTOS
             if (gamepad1.right_bumper){
                 pulsos += sumadorPulsos;
-                sleep(200);
+                sleep(300);
             }
             else if(gamepad1.left_bumper){
                 pulsos -= sumadorPulsos;
-                sleep(200);
+                sleep(300);
             }
 
             //ATSION
