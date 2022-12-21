@@ -158,10 +158,6 @@ public class Elevador {
 
         elevador.setPower(potencia);
 
-        while(elevador.isBusy()){
-
-        }
-
         elevador.setPower(0);
 
         elevador.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -177,10 +173,6 @@ public class Elevador {
 
         elevador.setPower(potencia);
 
-        while(elevador.isBusy()){
-
-        }
-
     }
 
     private void moverseDistancia_2(double potencia , int distance){
@@ -191,10 +183,6 @@ public class Elevador {
         giroMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         giroMotor.setPower(potencia);
-
-        while(giroMotor.isBusy()){
-
-        }
 
         giroMotor.setPower(0);
 
@@ -210,10 +198,6 @@ public class Elevador {
         giroMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         giroMotor.setPower(potencia);
-
-        while(giroMotor.isBusy()){
-
-        }
 
     }
 

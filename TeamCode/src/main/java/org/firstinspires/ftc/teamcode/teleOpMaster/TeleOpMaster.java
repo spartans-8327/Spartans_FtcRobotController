@@ -35,7 +35,7 @@ public class TeleOpMaster extends LinearOpMode {
             incremento = (gamepad1.left_stick_button || gamepad1.right_stick_button) ? 0.7 : 0;
             incrementoGiro = (gamepad2.left_stick_button || gamepad2.right_stick_button)? 200 : 0;
 
-            telemetry.addData("Velocidad" , velocidad + incremento * 100 + "%");
+            telemetry.addData("Velocidad" , (velocidad + incremento)* 100 + "%");
 
             double stickIzquierdoY = -gamepad1.left_stick_y;
             double stickIzquierdoX = gamepad1.left_stick_x;
@@ -117,12 +117,6 @@ public class TeleOpMaster extends LinearOpMode {
                 else if (gamepad2.x)
                     elevador.irCono3(0.6);
             }
-
-
-            if (stickDerechoX_2 > 0 && stickDerechoX_2 < 0.5)
-                elevador.elevadorManual(1, 200 , 100);
-            else if (stickDerechoX_2 > 0.5 || stickDerechoX_2 == 1)
-                elevador.girarManual(1, 400, 100);
 
             if (gamepad2.right_trigger > 0.7) {
                 elevador.abrirGarra();
