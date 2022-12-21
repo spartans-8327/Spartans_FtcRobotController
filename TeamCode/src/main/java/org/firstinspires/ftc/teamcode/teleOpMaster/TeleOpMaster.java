@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.configuracion.RobotConfigMaster;
 import org.firstinspires.ftc.teamcode.domain.Chasis;
 import org.firstinspires.ftc.teamcode.domain.Elevador;
 
-@TeleOp(name="TeleOpMaster", group="Pushbot")
+@TeleOp(name="TeleOpManual", group="Pushbot")
 
 public class TeleOpMaster extends LinearOpMode {
 
@@ -98,7 +98,7 @@ public class TeleOpMaster extends LinearOpMode {
                     elevador.girar_3(1);
             }
 
-            if (robot.motor.isBusy() == false){
+            if (robot.motor.isBusy() == false && gamepad2.left_bumper == false){
                 if (gamepad2.b)
                     elevador.irAlto(1);
                 else if (gamepad2.y)
@@ -106,7 +106,16 @@ public class TeleOpMaster extends LinearOpMode {
                 else if (gamepad2.x)
                     elevador.irBajo(1);
                 else if (gamepad2.a)
-                    elevador.irPiso(0.5);
+                    elevador.irPiso(0.6);
+            }
+
+            if (robot.motor.isBusy() == false && gamepad2.left_bumper){
+                if (gamepad2.b)
+                    elevador.irCono5(1);
+                else if (gamepad2.y)
+                    elevador.irCono4(1);
+                else if (gamepad2.x)
+                    elevador.irCono3(0.6);
             }
 
 
