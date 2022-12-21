@@ -50,10 +50,12 @@ public class TeleOpMaster extends LinearOpMode {
             double stickDerechoY_2 = -gamepad2.right_stick_y;
             double stickDerechoX_2 = gamepad2.right_stick_x;
 
+            telemetry.addLine("CONTROL 1");
             telemetry.addData("Stic isquierdo Y" , stickIzquierdoY);
             telemetry.addData("Stic isquierdo X " , stickIzquierdoX);
             telemetry.addData("Stic derecho Y " , stickDerechoY);
             telemetry.addData("Stic derecho X " , stickDerechoX);
+            telemetry.addLine("");
 
             telemetry.addLine("CONTROL 2");
 
@@ -65,44 +67,48 @@ public class TeleOpMaster extends LinearOpMode {
             telemetry.update();
 
 
-            if (stickIzquierdoY > 0)
+            if (stickIzquierdoY > 0.9)
                 chasis.moverseEnfrente(velocidad + incremento);
-            else if (stickIzquierdoY < 0){
+            else if (stickIzquierdoY < -0.9){
                 chasis.moverseAtras(velocidad + incremento);
             }
-            else if (stickIzquierdoX < 0){
+            else if (stickIzquierdoX < -0.9){
                 chasis.moverseIzquierda(velocidad + incremento);
             }
-            else if (stickIzquierdoX > 0){
+            else if (stickIzquierdoX > 0.9){
                 chasis.moverseDerecha(velocidad + incremento);
             }
-            else if (stickDerechoX < 0){
+            else if (stickDerechoX < -0.9){
                 chasis.girarIzquierda(velocidad + incremento);
             }
-            else if(stickDerechoX > 0){
+            else if(stickDerechoX > 0.9){
                 chasis.girarDerecha(velocidad + incremento);
             } else {
                 chasis.parar();
             }
 
+            if (robot.motor_1.isBusy() == false){
+                if (gamepad2.dpad_down)
+                    elevador.girar_0(1);
+                else if (gamepad2.dpad_left)
+                    elevador.girar_1(1);
+                else if (gamepad2.dpad_up)
+                    elevador.girar_2(1);
+                else if (gamepad2.dpad_right)
+                    elevador.girar_3(1);
+            }
 
-            if (gamepad2.dpad_down)
-                elevador.girar_0(1);
-            else if (gamepad2.dpad_left)
-                elevador.girar_1(1);
-            else if (gamepad2.dpad_up)
-                elevador.girar_2(1);
-            else if (gamepad2.dpad_right)
-                elevador.girar_3(1);
+            if (robot.motor.isBusy() == false){
+                if (gamepad2.b)
+                    elevador.irAlto(1);
+                else if (gamepad2.y)
+                    elevador.irMedio(1);
+                else if (gamepad2.x)
+                    elevador.irBajo(1);
+                else if (gamepad2.a)
+                    elevador.irPiso(0.5);
+            }
 
-            if (gamepad2.b)
-                elevador.irAlto(1);
-            else if (gamepad2.y)
-                elevador.irMedio(1);
-            else if (gamepad2.x)
-                elevador.irBajo(1);
-            else if (gamepad2.a)
-                elevador.irPiso(0.5);
 
             if (stickDerechoX_2 > 0 && stickDerechoX_2 < 0.5)
                 elevador.elevadorManual(1, 200 , 100);
