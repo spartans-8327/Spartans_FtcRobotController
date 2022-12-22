@@ -35,8 +35,11 @@ Version casi completa del TeleOp manual, haría algunos puntos en una competenci
 - (Aún no hay autónomo)
 
 ## v1.3 ##
-Versión completa y sin bugs (Por ahora) del TeleOp manual, listo para una competancia
 - Versión definitiva del TeleOp Manual
 - Bugs a la hora de realizar dos acciones al mismo tiempo (elevador y chasis) corregidos
 - Bugs de calibración corregidos
 - Calibración con cancha real 
+
+## v1.4 ##
+Versión completa y sin bugs (Por ahora) del TeleOp manual, listo para una competancia
+- Movimiento manual de giro y elevación sin perder rastreo de posición
