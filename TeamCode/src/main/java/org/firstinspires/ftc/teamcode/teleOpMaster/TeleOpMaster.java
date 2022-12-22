@@ -33,7 +33,6 @@ public class TeleOpMaster extends LinearOpMode {
 
 
             incremento = (gamepad1.left_stick_button || gamepad1.right_stick_button) ? 0.7 : 0;
-            incrementoGiro = (gamepad2.left_stick_button || gamepad2.right_stick_button)? 200 : 0;
 
             telemetry.addData("Velocidad" , (velocidad + incremento)* 100 + "%");
 
@@ -50,7 +49,7 @@ public class TeleOpMaster extends LinearOpMode {
             double stickDerechoY_2 = -gamepad2.right_stick_y;
             double stickDerechoX_2 = gamepad2.right_stick_x;
 
-            telemetry.addLine("CONTROL 1");
+            /*telemetry.addLine("CONTROL 1");
             telemetry.addData("Stic isquierdo Y" , stickIzquierdoY);
             telemetry.addData("Stic isquierdo X " , stickIzquierdoX);
             telemetry.addData("Stic derecho Y " , stickDerechoY);
@@ -62,11 +61,11 @@ public class TeleOpMaster extends LinearOpMode {
             telemetry.addData("Stic isquierdo 2 Y" , stickIzquierdoY_2);
             telemetry.addData("Stic isquierdo 2 X " , stickIzquierdoX_2);
             telemetry.addData("Stic derecho 2 Y " , stickDerechoY_2);
-            telemetry.addData("Stic derecho 2 X " , stickDerechoX_2);
+            telemetry.addData("Stic derecho 2 X " , stickDerechoX_2);*/
 
             telemetry.update();
 
-
+            //Control de chasis
             if (stickIzquierdoY > 0.9)
                 chasis.moverseEnfrente(velocidad + incremento);
             else if (stickIzquierdoY < -0.9){
@@ -87,7 +86,8 @@ public class TeleOpMaster extends LinearOpMode {
                 chasis.parar();
             }
 
-            if (robot.motor_1.isBusy() == false){
+            //Control de giro (Automático)
+            if (robot.motor_1.isBusy() == false && gamepad2.left_trigger < 0.9){
                 if (gamepad2.dpad_down)
                     elevador.girar_0(1);
                 else if (gamepad2.dpad_left)
@@ -98,7 +98,17 @@ public class TeleOpMaster extends LinearOpMode {
                     elevador.girar_3(1);
             }
 
-            if (robot.motor.isBusy() == false && gamepad2.left_bumper == false){
+            //Control de giro (Manual)
+            if (robot.motor_1.isBusy() == false && gamepad2.left_trigger >= 0.9){
+                if (gamepad2.dpad_right){
+                    elevador.girarManual(0.4, 200);
+                } else if(gamepad2.dpad_left){
+                    elevador.girarManual(0.4, -200);
+                }
+            }
+
+            //Control de elevador (Automático)
+            if (robot.motor.isBusy() == false && gamepad2.left_bumper == false && gamepad2.left_trigger < 0.9){
                 if (gamepad2.b)
                     elevador.irAlto(1);
                 else if (gamepad2.y)
@@ -109,7 +119,7 @@ public class TeleOpMaster extends LinearOpMode {
                     elevador.irPiso(0.6);
             }
 
-            if (robot.motor.isBusy() == false && gamepad2.left_bumper){
+            if (robot.motor.isBusy() == false && gamepad2.left_bumper && gamepad2.left_trigger < 0.9){
                 if (gamepad2.b)
                     elevador.irCono5(1);
                 else if (gamepad2.y)
@@ -118,6 +128,16 @@ public class TeleOpMaster extends LinearOpMode {
                     elevador.irCono3(0.6);
             }
 
+            //Control de elevador (Manual)
+            if (robot.motor.isBusy() == false && gamepad2.left_trigger >= 0.9){
+                if (gamepad2.y){
+                    elevador.elevadorManual(0.4, 200);
+                } else if(gamepad2.a){
+                    elevador.elevadorManual(0.4, -200);
+                }
+            }
+
+            //Control de garra
             if (gamepad2.right_trigger > 0.7) {
                 elevador.abrirGarra();
             }

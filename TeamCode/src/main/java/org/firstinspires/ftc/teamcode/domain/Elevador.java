@@ -50,13 +50,6 @@ public class Elevador {
         this.linearOpMode = linearOpMode;
     }
 
-    public void girarManual(double potencia,int pulsos, int delay){
-        moverseDistanciaMantener_2(potencia, pulsos);
-        pulsosGiroAct += pulsos;
-        linearOpMode.sleep(delay);
-        linearOpMode.telemetry.addLine("Ejecutando Girar Manual");
-    }
-
     public void girar_0(double potencia){
         girar90Grados(0, potencia);
     }
@@ -110,10 +103,16 @@ public class Elevador {
         elevarPulsos(PULSOSPISO, potencia);
     }
 
-    public void elevadorManual(double potencia,int pulsos,int tiempo){
+    public void elevadorManual(double potencia, int pulsos){
         moverseDistanciaMantener_1(potencia, pulsos);
-        linearOpMode.sleep(tiempo);
+        linearOpMode.sleep(500);
         pulsosActual += pulsos;
+    }
+
+    public void girarManual(double potencia, int pulsos){
+        moverseDistanciaMantener_2(potencia, pulsos);
+        linearOpMode.sleep(500);
+        pulsosGiroAct += pulsos;
     }
 
 
