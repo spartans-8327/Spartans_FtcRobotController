@@ -26,6 +26,8 @@ public class RobotConfigMaster {
     public DcMotor atrasDer = null; //2
     public DcMotor atrasIzq = null; //3
 
+    public DcMotor[] motores= {enfrenteDer,enfrenteIzq, atrasDer, atrasIzq};
+
     public Servo servo = null;
 
     BNO055IMU imu;
@@ -41,15 +43,21 @@ public class RobotConfigMaster {
 
         hwMap = ahwMap;
 
-        enfrenteDer = hwMap.get(DcMotor.class, "enfrenteDer");
-        enfrenteIzq = hwMap.get(DcMotor.class, "enfrenteIzq");
-        atrasDer = hwMap.get(DcMotor.class, "atrasDer");
-        atrasIzq = hwMap.get(DcMotor.class, "atrasIzq");
+        motores[0] = hwMap.get(DcMotor.class, "enfrenteDer");
+        motores[1] = hwMap.get(DcMotor.class, "enfrenteIzq");
+        motores[2] = hwMap.get(DcMotor.class, "atrasDer");
+        motores[3]= hwMap.get(DcMotor.class, "atrasIzq");
+
+        enfrenteDer = motores[0];
+        enfrenteIzq = motores[1];
+        atrasDer = motores[2];
+        atrasIzq = motores[3];
 
         motor = hwMap.get(DcMotor.class, "motor");
         motor_1 = hwMap.get(DcMotor.class, "motor_1");
 
         telemetry.addLine("Motores inicializados...");
+        telemetry.update();
 
         servo = hwMap.get(Servo.class, "servo");
 

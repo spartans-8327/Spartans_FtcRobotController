@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.configuracion.RobotConfigMaster;
 import org.firstinspires.ftc.teamcode.domain.Chasis;
 
 @Disabled
@@ -11,12 +12,12 @@ import org.firstinspires.ftc.teamcode.domain.Chasis;
 
 public class ChasisTeleop extends LinearOpMode {
 
-    ChasisSimpleConfig_2 robot = new ChasisSimpleConfig_2();
+    RobotConfigMaster robot = new RobotConfigMaster();
 
     @Override
     public void runOpMode() {
         robot.init(hardwareMap , telemetry);
-        Chasis chasis = new Chasis(robot.enfrenteDer , robot.enfrenteIzq , robot.atrasDer , robot.atrasIzq);
+        Chasis chasis = new Chasis(robot.motores, this);
         telemetry.update();
         final double velocidad = 0.3;
         double incremento = 0.7;

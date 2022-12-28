@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.configuracion.RobotConfigMaster;
 import org.firstinspires.ftc.teamcode.domain.Chasis;
 import org.firstinspires.ftc.teamcode.templates.ConfiguracionHardwareTempl;
 
@@ -11,12 +12,12 @@ import org.firstinspires.ftc.teamcode.templates.ConfiguracionHardwareTempl;
 @Disabled
 public class GirosPrecisos extends LinearOpMode {
 
-    GirosPrecisosConfig robot = new GirosPrecisosConfig();
+    RobotConfigMaster robot = new RobotConfigMaster();
 
     @Override
     public void runOpMode() {
         robot.init(hardwareMap , telemetry);
-        Chasis chasis = new Chasis(robot.enfrenteDer , robot.enfrenteIzq, robot.atrasDer, robot.atrasIzq, robot.imu);
+        Chasis chasis = new Chasis(robot.motores, this);
         sleep(1000);
         telemetry.update();
 
@@ -28,8 +29,6 @@ public class GirosPrecisos extends LinearOpMode {
             telemetry.addData("Angulo" , chasis.obtenerAngulo());
             telemetry.update();
 
-
-            chasis.girarAngulo (90 ,  0.3, telemetry);
 
             telemetry.addData("Angulo final" , chasis.obtenerAngulo());
             telemetry.update();

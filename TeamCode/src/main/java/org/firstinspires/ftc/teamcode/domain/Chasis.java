@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.domain;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -12,44 +14,77 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class Chasis {
 
-    private  DcMotor enfrenteDer;
+    public DcMotor enfrenteDer;
     private DcMotor enfrenteIzq;
     private DcMotor atrasDer;
     private DcMotor atrasIzq;
+    private LinearOpMode linearOpMode;
     private BNO055IMU imu = null;
 
+    private DcMotor motores[];
 
+    public Chasis(DcMotor[] motores, LinearOpMode linearOpMode){
+        this.linearOpMode = linearOpMode;
+        this.motores = motores;
 
-    public Chasis(DcMotor enfrenteDer , DcMotor enfrenteIzq , DcMotor atrasDer , DcMotor atrasIzq){
+    }
+
+    public Chasis(DcMotor[] motores, BNO055IMU imu, LinearOpMode linearOpMode){
         this.enfrenteDer = enfrenteDer;
         this.enfrenteIzq = enfrenteIzq;
         this.atrasDer = atrasDer;
         this.atrasIzq = atrasIzq;
     }
 
-    public Chasis(DcMotor enfrenteDer , DcMotor enfrenteIzq , DcMotor atrasDer , DcMotor atrasIzq , BNO055IMU imu){
-        this.enfrenteDer = enfrenteDer;
-        this.enfrenteIzq = enfrenteIzq;
-        this.atrasDer = atrasDer;
-        this.atrasIzq = atrasIzq;
 
-        this.imu = imu;
+
+    public void init(){
+        this.enfrenteDer = motores[0];
+        this.enfrenteIzq = motores[1];
+        this.atrasDer = motores[2];
+        this.atrasIzq = motores[3];
     }
 
-    public Chasis(DcMotor enfrenteDer , DcMotor enfrenteIzq , DcMotor atrasDer , DcMotor atrasIzq , double posicionX
-                  ,double posicionY){
-        this.enfrenteDer = enfrenteDer;
-        this.enfrenteIzq = enfrenteIzq;
-        this.atrasDer = atrasDer;
-        this.atrasIzq = atrasIzq;
-
+    public void reversa(DcMotor[] motores) {
+        for (int i = 0; i < motores.length; i++){
+            motores[i].setDirection(DcMotorSimple.Direction.REVERSE);
+        }
     }
 
-    public double obtenerAngulo(){
-        Orientation angulos;
-        angulos = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double anguloChido = angulos.firstAngle + 180;
-        return anguloChido;
+    public void derecho(DcMotor[] motores) {
+        for (int i = 0; i < motores.length; i++){
+            motores[i].setDirection(DcMotorSimple.Direction.FORWARD);
+        }
+    }
+
+    public void usarWithoutEncoder(DcMotor[] motores) {
+        for (int i = 0; i < motores.length; i++){
+            motores[i].setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+
+    public void usarUsingEncoder(DcMotor[] motores) {
+        for (int i = 0; i < motores.length; i++){
+            motores[i].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+    public void usarRunToPosition(DcMotor[] motores) {
+        for (int i = 0; i < 3; i++){
+            motores[i].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+    }
+
+    public void usarStopAndResetEncoders(DcMotor[] motores) {
+        for (int i = 0; i < 3; i++){
+            motores[i].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        }
+    }
+
+    public void setTargetPositionV(DcMotor[] motores, int target) {
+        for (int i = 0; i < motores.length; i++){
+            motores[i].setTargetPosition(target);
+        }
     }
 
 
@@ -63,68 +98,79 @@ public class Chasis {
         return velocidad;
     }
 
-    public void girarAngulo(int anguloObjetivo  , double potencia , Telemetry telemetry){
-        double error = anguloObjetivo - this.obtenerAngulo();
-        double tolerancia;
 
-        switch ((int) (potencia*10)){
-            case 1:
-                tolerancia = 1;
-                break;
+    public void irEnfrente(int sp, double kp){
+        usarStopAndResetEncoders(motores);
+        usarWithoutEncoder(motores);
+        int pv = 0;
+        int i = 0;
 
-            case 2:
-                tolerancia = 4;
-                break;
-
-            case 3:
-                tolerancia = 7;
-                break;
-
-            case 4:
-                tolerancia = 4;
-                break;
-
-            case 5:
-                tolerancia = 5;
-                break;
-
-            case 6:
-                tolerancia = 6;
-                break;
-
-            case 7:
-                tolerancia = 7;
-                break;
-
-            case 8:
-                tolerancia = 8;
-                break;
-
-            case 9:
-                tolerancia = 9;
-                break;
-
-            case 10:
-                tolerancia = 10;
-                break;
-
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + (int) (potencia * 10));
+        while(sp != pv && linearOpMode.opModeIsActive()){
+            pv = motores[i].getCurrentPosition();
+            int error = sp - pv;
+            double power = kp * error;
+            moverseEnfrente(power);
+            i = (i < 4)? i++ : 0;
         }
+            usarRunToPosition(motores);
+            usarStopAndResetEncoders(motores);
+            setTargetPositionV(motores, 0);
+            moverseEnfrente(0.1);
+    }
 
-        if (error > 0){
-            telemetry.update();
+    public void irAtras(int sp, double kp){
+        usarStopAndResetEncoders(motores);
+        usarWithoutEncoder(motores);
+        sp = -sp;
+        int pv = 0;
+        int i = 0;
 
-            while (this.obtenerAngulo() < anguloObjetivo -tolerancia || this.obtenerAngulo() > anguloObjetivo + tolerancia){
-                girarIzquierda(potencia);
-            }
-        } else {
-            telemetry.update();
-            while (this.obtenerAngulo() < anguloObjetivo - tolerancia || this.obtenerAngulo() > anguloObjetivo + tolerancia){
-                girarDerecha(potencia);
-            }
+        while(sp != pv && linearOpMode.opModeIsActive()){
+            pv = motores[i].getCurrentPosition();
+            int error = sp - pv;
+            double power = kp * error;
+            moverseEnfrente(power);
+            i = (i < 4)? i++ : 0;
         }
+        usarRunToPosition(motores);
+        usarStopAndResetEncoders(motores);
+        setTargetPositionV(motores, 0);
+        moverseAtras(0.1);
+    }
+
+    public void irIzquierda(int sp, double kp){
+        usarStopAndResetEncoders(motores);
+        usarWithoutEncoder(motores);
+        int pv = 0;
+        int i = 0;
+
+        while(sp != pv && linearOpMode.opModeIsActive()){
+            pv = motores[0].getCurrentPosition();
+            int error = sp - pv;
+            double power = kp * error;
+            moverseDerecha(power);
+        }
+        usarRunToPosition(motores);
+        usarStopAndResetEncoders(motores);
+        setTargetPositionV(motores, 0);
+        moverseEnfrente(0.1);
+    }
+
+    public void irDerecha(int sp, double kp){
+        usarStopAndResetEncoders(motores);
+        usarWithoutEncoder(motores);
+        int pv = 0;
+
+        while(sp != pv && linearOpMode.opModeIsActive()){
+            pv = motores[1].getCurrentPosition();
+            int error = sp - pv;
+            double power = kp * error;
+            moverseIzquierda(power);
+        }
+        usarRunToPosition(motores);
+        usarStopAndResetEncoders(motores);
+        setTargetPositionV(motores, 0);
+        moverseEnfrente(0.1);
     }
 
     public void moverseEnfrente(double potencia , int pulsos){
@@ -476,6 +522,13 @@ public class Chasis {
 
     public void parar(){
         moverseEnfrente(0);
+    }
+
+    public double obtenerAngulo(){
+        Orientation angulos;
+        angulos = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double anguloChido = angulos.firstAngle + 180;
+        return anguloChido;
     }
 
 } 
