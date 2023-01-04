@@ -17,7 +17,7 @@ public class ChasisTeleop extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap , telemetry);
-        Chasis chasis = new Chasis(robot.motores, this);
+        Chasis chasis = new Chasis(robot.motores, this, robot.imu);
         telemetry.update();
         final double velocidad = 0.3;
         double incremento = 0.7;

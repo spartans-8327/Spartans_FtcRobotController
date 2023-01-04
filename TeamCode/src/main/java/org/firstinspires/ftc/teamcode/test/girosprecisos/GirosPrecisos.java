@@ -17,7 +17,7 @@ public class GirosPrecisos extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap , telemetry);
-        Chasis chasis = new Chasis(robot.motores, this);
+        Chasis chasis = new Chasis(robot.motores, this, robot.imu);
         sleep(1000);
         telemetry.update();
 

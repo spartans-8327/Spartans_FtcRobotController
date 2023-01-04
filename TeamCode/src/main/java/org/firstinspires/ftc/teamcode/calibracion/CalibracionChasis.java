@@ -18,7 +18,7 @@ public class CalibracionChasis extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap , telemetry);
-        Chasis chasis = new Chasis(robot.motores,  this);
+        Chasis chasis = new Chasis(robot.motores,  this, robot.imu);
         chasis.init();
 
         telemetry.addLine("Iniciando calibración de chasis");
@@ -79,13 +79,13 @@ public class CalibracionChasis extends LinearOpMode {
 
             //SELECCIÓN DE ACCIÓN  Y ACCIÓN
             if (stickIzquierdoY == 1)
-                chasis.irEnfrente(pulsos, kp);
+                chasis.moverseEnfrente(0.4, pulsos);
              else if (stickIzquierdoY == -1)
-                chasis.irAtras(pulsos, kp);
+                chasis.moverseAtras(0.4, pulsos);
              else if (stickIzquierdoX == -1)
-                chasis.irDerecha(pulsos, kp);
+                chasis.moverseIzquierda(0.6, pulsos);
              else if (stickIzquierdoX == 1)
-                chasis.irIzquierda(pulsos, kp);
+                chasis.moverseDerecha(0.6, pulsos);
 
              else if (stickDerechoX == 1)
                  chasis.girarDerecha(0.6, pulsos);

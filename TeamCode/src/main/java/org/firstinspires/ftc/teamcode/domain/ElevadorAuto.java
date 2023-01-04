@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Elevador {
+public class ElevadorAuto {
     DcMotor elevador;
     DcMotor giroMotor;
 
@@ -12,17 +12,23 @@ public class Elevador {
 
     private LinearOpMode linearOpMode;
 
-    public int pulsosActual = 0;
+    private int pulsosActual = 0;
 
-    private final int PULSOSALTO = 1150;
-    private final int PULSOSMEDIO = 850;
-    private final int PULSOSBAJO = 550;
+    private final int PULSOSALTO = 1230;
+    private final int PULSOSMEDIO = 900;
+    private final int PULSOSBAJO = 620;
     private final int PULSOSMOVERSECONO = 500;
     private final int PULSOSMOVERSE = 400;
     private final int PULSOSPISO = 0;
 
-    private final int PULSOSCONO5 = 300;
-    private final int PULSOSCONO4 = 150;
+    private final int PULSOSCONO5 = 270;
+    private final int PULSOSCONO4 = 230;
+    private final int PULSOSCONO3 = 190;
+
+    private final int DELAY = 200;
+
+
+    private final int pulsos20pulgadas = 0;
 
     private final int PULSOS90 = 490;
  //Posicion de inicio (Puede cambiar)
@@ -31,7 +37,7 @@ public class Elevador {
     private boolean garraCerrada = false;
 
 
-    public Elevador(DcMotor elevador , DcMotor giroMotor, Servo servo, LinearOpMode linearOpMode, int posGiroAct){
+    public ElevadorAuto(DcMotor elevador , DcMotor giroMotor, Servo servo, LinearOpMode linearOpMode, int posGiroAct){
         this.elevador = elevador;
         this.giroMotor = giroMotor;
         this.servo = servo;
@@ -39,7 +45,7 @@ public class Elevador {
         this.pulsosGiroAct = posGiroAct*PULSOS90;
     }
 
-    public Elevador(DcMotor elevador , DcMotor giroMotor, Servo servo, LinearOpMode linearOpMode){
+    public ElevadorAuto(DcMotor elevador , DcMotor giroMotor, Servo servo, LinearOpMode linearOpMode){
         this.elevador = elevador;
         this.giroMotor = giroMotor;
         this.servo = servo;
@@ -48,51 +54,68 @@ public class Elevador {
 
     public void girar_0(double potencia){
         girar90Grados(0, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void girar_1(double potencia){
         girar90Grados(1, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void girar_2(double potencia){
         girar90Grados(2, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void girar_3(double potencia){
         girar90Grados(3, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void irAlto(double potencia){
         elevarPulsos(PULSOSALTO, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void irMedio(double potencia){
         elevarPulsos(PULSOSMEDIO, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
 
     public void irBajo(double potencia){
         elevarPulsos(PULSOSBAJO, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void irMoverse(double potencia){
         elevarPulsos(PULSOSMOVERSE, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void irMoverseCono(double potencia){
         elevarPulsos(PULSOSMOVERSECONO, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void irCono5(double potencia){
         elevarPulsos(PULSOSCONO5, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void irCono4(double potencia){
         elevarPulsos(PULSOSCONO4, potencia);
+        linearOpMode.sleep(DELAY);
+    }
+
+    public void irCono3(double potencia){
+        elevarPulsos(PULSOSCONO3, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void irPiso(double potencia){
         elevarPulsos(PULSOSPISO, potencia);
+        linearOpMode.sleep(DELAY);
     }
 
     public void elevadorManual(double potencia, int pulsos){
@@ -109,15 +132,17 @@ public class Elevador {
 
 
 
-    public void cerrarGarra(){
+    public void abrirGarra(){
         servo.setPosition(0);
         garraCerrada = false;
+        linearOpMode.sleep(DELAY);
 
     }
 
-    public void abrirGarra(){
+    public void cerrarGarra(){
         servo.setPosition(1);
         garraCerrada = true;
+        linearOpMode.sleep(DELAY);
     }
 
     public void elevarPulsos(final int PULSOS, double potencia){

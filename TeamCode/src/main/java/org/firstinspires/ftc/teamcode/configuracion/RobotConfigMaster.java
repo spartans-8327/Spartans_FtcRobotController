@@ -30,7 +30,7 @@ public class RobotConfigMaster {
 
     public Servo servo = null;
 
-    BNO055IMU imu;
+    public BNO055IMU imu;
 
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
@@ -69,14 +69,11 @@ public class RobotConfigMaster {
         IMUParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         IMUParameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
         IMUParameters.calibrationDataFile = "BNO055IMUCalibration.json";
-
         imu.initialize(IMUParameters);
 
 
-
-
-        reversa(atrasIzq , enfrenteIzq, motor);
-        derecho(atrasDer , enfrenteDer);
+        reversa(atrasDer , enfrenteDer, motor);
+        derecho(atrasIzq , enfrenteIzq);
 
         telemetry.addLine("Cambio de giro de motores hecho...");
         telemetry.update();

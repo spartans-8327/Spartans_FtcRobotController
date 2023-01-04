@@ -79,6 +79,8 @@ public class CalibracionElevacion extends LinearOpMode {
 
             //ATSION
             if (gamepad1.a){
+                elevador.cerrarGarra();
+                sleep(1000);
                 moverseDistanciaMantener(potenciaIda , pulsos);
                 pulsosElegidos = pulsos;
                 sleep(3000);

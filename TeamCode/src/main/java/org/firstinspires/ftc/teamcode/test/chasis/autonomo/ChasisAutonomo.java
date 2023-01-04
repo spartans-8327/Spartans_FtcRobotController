@@ -17,13 +17,26 @@ public class ChasisAutonomo extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap , telemetry);
-        Chasis chasis = new Chasis(robot.motores, this);
+        Chasis chasis = new Chasis(robot.motores , this, robot.imu);
+        ElevadorAuto elevador = new ElevadorAuto(robot.motor, robot.motor_1, robot.servo, this);
         chasis.init();
         telemetry.update();
 
         waitForStart();
 
-        chasis.irEnfrente(800, 0.0008);
+        while (opModeIsActive()){
+            elevador.cerrarGarra();
+            elevador.girar_1(0.7);
+            elevador.irBajo(0.7);
+            chasis.moverseY(0.5);
+            elevador.abrirGarra();
+            sleep(500);
+            elevador.girar_0(0.7);
+            elevador.irPiso(0.7);
+            chasis.moverseY(1.5);
+            chasis.girarC(-1);
+            chasis.moverseY(0.8);
+        }
 
     }
 
