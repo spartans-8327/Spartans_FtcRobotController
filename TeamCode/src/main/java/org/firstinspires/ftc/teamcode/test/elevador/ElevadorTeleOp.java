@@ -4,20 +4,22 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.robot.Robot;
 
+import org.firstinspires.ftc.teamcode.configuracion.RobotConfigMaster;
 import org.firstinspires.ftc.teamcode.domain.Elevador;
 
 @TeleOp(name="ElevadorTeleOp", group="Pushbot")
-@Disabled
+//@Disabled
 public class ElevadorTeleOp extends LinearOpMode {
-    ElevadorTestConfig robot = new ElevadorTestConfig();
+    RobotConfigMaster robot = new RobotConfigMaster();
 
 
     @Override
     public void runOpMode() {
 
         robot.init(hardwareMap , telemetry);
-        Elevador elevador = new Elevador(robot.motor, robot.motor_2,  robot.servo ,  this);
+        Elevador elevador = new Elevador(robot.motor, robot.motor_1,  robot.servo ,  this);
 
         telemetry.update();
 
@@ -41,12 +43,14 @@ public class ElevadorTeleOp extends LinearOpMode {
             else if (gamepad2.a)
                 elevador.irPiso(1);
 
-            if (gamepad1.right_trigger > 0.7)
+            if (stickIzquierdo_y != 0){
+                robot.motor.setPower(stickIzquierdo_y);
+            }
+
+            if (gamepad2.right_trigger > 0.7)
                 elevador.abrirGarra();
             else
                 elevador.cerrarGarra();
-
-
 
         }
 

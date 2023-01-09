@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Elevador {
-    DcMotor elevador;
-    DcMotor giroMotor;
+    public DcMotor elevador;
+    public DcMotor giroMotor;
 
     Servo servo;
 
@@ -14,10 +14,10 @@ public class Elevador {
 
     public int pulsosActual = 0;
 
-    private final int PULSOSALTO = 1150;
+    private final int PULSOSALTO = 950;
     private final int PULSOSMEDIO = 850;
     private final int PULSOSBAJO = 550;
-    private final int PULSOSMOVERSECONO = 500;
+    private final int PULSOSMOVERSECONO = 700;
     private final int PULSOSMOVERSE = 400;
     private final int PULSOSPISO = 0;
 
@@ -63,7 +63,18 @@ public class Elevador {
     }
 
     public void irAlto(double potencia){
-        elevarPulsos(PULSOSALTO, potencia);
+        int pulsosNecesarios = PULSOSALTO - pulsosActual;
+        if (pulsosNecesarios != 0 && pulsosNecesarios > 0){
+            moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        } else if (pulsosNecesarios < 0){
+            moverseDistanciaMantener_1(0.3, pulsosNecesarios);
+        }
+        pulsosActual += pulsosNecesarios;
+
+        this.elevador.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        elevador.setPower(0.6);
+        linearOpMode.sleep(500);
+        moverseDistanciaMantener_1(1, 0);
     }
 
     public void irMedio(double potencia){
@@ -73,10 +84,6 @@ public class Elevador {
 
     public void irBajo(double potencia){
         elevarPulsos(PULSOSBAJO, potencia);
-    }
-
-    public void irMoverse(double potencia){
-        elevarPulsos(PULSOSMOVERSE, potencia);
     }
 
     public void irMoverseCono(double potencia){
@@ -122,14 +129,16 @@ public class Elevador {
 
     public void elevarPulsos(final int PULSOS, double potencia){
         int pulsosNecesarios = PULSOS - pulsosActual;
-        if (pulsosNecesarios != 0){
+        if (pulsosNecesarios != 0 && pulsosNecesarios > 0){
             moverseDistanciaMantener_1(potencia, pulsosNecesarios);
+        } else if (pulsosNecesarios < 0){
+            moverseDistanciaMantener_1(0.3, pulsosNecesarios);
         }
         pulsosActual += pulsosNecesarios;
     }
 
     public void girar90Grados(int veces, double potencia){
-        boolean estabaEnPsocioninicial = (pulsosActual == PULSOSPISO)? true: false;
+        boolean estabaEnPsocioninicial = (elevador.getCurrentPosition() <= 0)? true: false;
         int pulsosNecesarios = PULSOS90*veces - pulsosGiroAct;
         if (pulsosNecesarios != 0) {
             if (estabaEnPsocioninicial)
@@ -155,7 +164,7 @@ public class Elevador {
 
     }
 
-    private void moverseDistanciaMantener_1(double potencia , int distance){
+    public void moverseDistanciaMantener_1(double potencia , int distance){
         elevador.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         elevador.setTargetPosition(distance);

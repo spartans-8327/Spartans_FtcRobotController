@@ -72,8 +72,8 @@ public class RobotConfigMaster {
         imu.initialize(IMUParameters);
 
 
-        reversa(atrasDer , enfrenteDer, motor);
-        derecho(atrasIzq , enfrenteIzq);
+        reversa(atrasIzq , enfrenteIzq, motor);
+        derecho(atrasDer , enfrenteDer);
 
         telemetry.addLine("Cambio de giro de motores hecho...");
         telemetry.update();
@@ -86,6 +86,7 @@ public class RobotConfigMaster {
         telemetry.update();
 
         usarUsingEncoder(enfrenteDer, enfrenteIzq, atrasDer, atrasIzq);
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         telemetry.addLine("Motores configurados...");
         telemetry.update();
 
@@ -160,6 +161,16 @@ public class RobotConfigMaster {
         }
     }
 
+    public void moverseDistanciaMantener_1(double potencia , int distance){
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        motor.setTargetPosition(distance);
+
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motor.setPower(potencia);
+
+    }
 
 }
 
