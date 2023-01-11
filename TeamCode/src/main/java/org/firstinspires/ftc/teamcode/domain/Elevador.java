@@ -25,8 +25,9 @@ public class Elevador {
     private final int PULSOSCONO4 = 150;
 
     private final int PULSOS90 = 490;
+
  //Posicion de inicio (Puede cambiar)
-    private int pulsosGiroAct;
+    public int pulsosGiroAct;
 
     private boolean garraCerrada = false;
 
@@ -36,7 +37,7 @@ public class Elevador {
         this.giroMotor = giroMotor;
         this.servo = servo;
         this.linearOpMode = linearOpMode;
-        this.pulsosGiroAct = posGiroAct*PULSOS90;
+        this.pulsosGiroAct = posGiroAct * PULSOS90;
     }
 
     public Elevador(DcMotor elevador , DcMotor giroMotor, Servo servo, LinearOpMode linearOpMode){
@@ -137,15 +138,16 @@ public class Elevador {
         pulsosActual += pulsosNecesarios;
     }
 
-    public void girar90Grados(int veces, double potencia){
-        boolean estabaEnPsocioninicial = (elevador.getCurrentPosition() <= 0)? true: false;
+    public int girar90Grados(int veces, double potencia){
+        boolean estabaEnPsocioninicial = (pulsosActual == PULSOSPISO)? true: false;
         int pulsosNecesarios = PULSOS90*veces - pulsosGiroAct;
         if (pulsosNecesarios != 0) {
             if (estabaEnPsocioninicial)
                 irMoverseCono(0.8);
             moverseDistanciaMantener_2(potencia, pulsosNecesarios);
             pulsosGiroAct += pulsosNecesarios;
-    }
+        }
+        return pulsosNecesarios;
     }
 
 
@@ -165,28 +167,12 @@ public class Elevador {
     }
 
     public void moverseDistanciaMantener_1(double potencia , int distance){
-        elevador.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         elevador.setTargetPosition(distance);
 
         elevador.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         elevador.setPower(potencia);
-
-    }
-
-    private void moverseDistancia_2(double potencia , int distance){
-        giroMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        giroMotor.setTargetPosition(distance);
-
-        giroMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        giroMotor.setPower(potencia);
-
-        giroMotor.setPower(0);
-
-        giroMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
@@ -198,6 +184,10 @@ public class Elevador {
         giroMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         giroMotor.setPower(potencia);
+
+        while(giroMotor.isBusy()){
+
+        }
 
     }
 

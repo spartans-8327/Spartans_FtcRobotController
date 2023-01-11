@@ -73,7 +73,7 @@ public class RobotConfigMaster {
 
 
         reversa(atrasIzq , enfrenteIzq, motor);
-        derecho(atrasDer , enfrenteDer);
+        derecho(atrasDer , enfrenteDer, motor_1);
 
         telemetry.addLine("Cambio de giro de motores hecho...");
         telemetry.update();

@@ -18,7 +18,7 @@ public class TeleOpMaster extends LinearOpMode {
     public void runOpMode() {
         robot.init(hardwareMap , telemetry);
         Chasis chasis = new Chasis(robot.motores , this, robot.imu);
-        Elevador elevador = new Elevador(robot.motor, robot.motor_1, robot.servo, this, 180);
+        Elevador elevador = new Elevador(robot.motor, robot.motor_1, robot.servo, this, 2);
         chasis.init();
         telemetry.update();
         final double velocidad = 0.5;
@@ -61,7 +61,8 @@ public class TeleOpMaster extends LinearOpMode {
             telemetry.addData("Stic derecho 2 Y " , stickDerechoY_2);
             telemetry.addData("Stic derecho 2 X " , stickDerechoX_2);
 
-            telemetry.addData("Pulsos actual", pulsosElevador);
+            telemetry.addData("Pos actual", elevador.pulsosGiroAct / 490);
+
 
             telemetry.update();
 
@@ -109,25 +110,7 @@ public class TeleOpMaster extends LinearOpMode {
                 }
             }
 
-            //Control de elevador (Automático)
-            /*if (robot.motor.isBusy() == false && gamepad2.left_bumper == false && gamepad2.left_trigger < 0.9){
-                if (gamepad2.b)
-                    elevador.irAlto(1);
-                else if (gamepad2.y)
-                    elevador.irMedio(1);
-                else if (gamepad2.x)
-                    elevador.irBajo(1);
-                else if (gamepad2.a)
-                    elevador.irPiso(0.6);
-            }
-
-            if (robot.motor.isBusy() == false && gamepad2.left_bumper && gamepad2.left_trigger < 0.9){
-                if (gamepad2.b)
-                    elevador.irCono5(1);
-                else if (gamepad2.y)
-                    elevador.irCono4(1);
-            }*/
-
+            
             //Control de elevador (Manual)
             if (stickIzquierdoY_2 == 1) {
                 robot.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

@@ -279,14 +279,14 @@ public class Chasis {
         atrasIzq.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void girarIzquierda(double potencia){
+    public void girarDerecha(double potencia){
         enfrenteDer.setPower(-potencia);
         enfrenteIzq.setPower(potencia);
         atrasDer.setPower(-potencia);
         atrasIzq.setPower(potencia);
     }
 
-    public void girarIzquierda(double potencia, int pulsos){
+    public void girarDerecha(double potencia, int pulsos){
         enfrenteDer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         enfrenteIzq.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         atrasDer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -319,11 +319,11 @@ public class Chasis {
 
 
 
-    public void girarDerecha(double potencia){
-        girarIzquierda(-potencia);
+    public void girarIzquierda(double potencia){
+        girarDerecha(-potencia);
     }
 
-    public void girarDerecha(double potencia , int pulsos){
+    public void girarIzquierda(double potencia , int pulsos){
         enfrenteDer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         enfrenteIzq.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         atrasDer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
