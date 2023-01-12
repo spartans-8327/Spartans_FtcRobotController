@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.test.motor.sinencoder.PruebaMotorSinEncoderConfig;
 
 @Autonomous(name="PruebaMotoresPosicion", group="Pushbot")
-@Disabled
+//@Disabled
 public class PruebaMotoresPosicion extends LinearOpMode {
     PruebaMotorSinEncoderConfig robot = new PruebaMotorSinEncoderConfig();
 
@@ -20,46 +20,77 @@ public class PruebaMotoresPosicion extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
-        // run until the end of the match (driver presses STOP)
-            telemetry.addData("Motor" , "100% -- 1000p");
+        while(opModeIsActive()){
+            double stickY = -gamepad2.left_stick_y;
             telemetry.update();
-            moverseDistanciaMantener(1 , -850);
-            sleep(2000);
-            moverseDistancia(0.1 , 850);
 
+            if (stickY == 1){
+                usingEncoder();
+                robot.motor.setPower(1);
+                telemetry.addLine("Arriba");
+            } else if (stickY == -1) {
+                usingEncoder();
+                robot.motor.setPower(-1);
+                telemetry.addLine("Abajo");
+            } else {
+                mantenerse();
+                telemetry.addLine("Manteniendo");
+            }
+
+
+        }
     }
 
-    public void moverseDistancia(double potencia , int distance){
-        robot.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    public void usingEncoder(){
+        robot.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
 
-        robot.motor.setTargetPosition(distance);
+    public void resetearEncoder(){
+        robot.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    public void setTarget(int distancia){
+        robot.motor.setTargetPosition(distancia);
+    }
+
+    public void setRunToPosition(){
+        robot.motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    public void activarMotor(int potencia){
+        robot.motor.setPower(potencia);
+    }
+
+    public void mantenerse (){
+
+        robot.motor.setTargetPosition(robot.motor.getCurrentPosition());
 
         robot.motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.motor.setPower(potencia);
-
-        while(robot.motor.isBusy()){
-
-        }
-
-        pararMotores();
-
-        robot.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motor.setPower(1);
 
     }
 
     public void moverseDistanciaMantener(double potencia , int distance){
         robot.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        telemetry.addLine("Reseteando Encoders");
+        telemetry.update();
 
         robot.motor.setTargetPosition(distance);
+        telemetry.addLine("Set target position");
+        telemetry.update();
 
         robot.motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        telemetry.addLine("Run to position");
+        telemetry.update();
 
         moverseEnfrente(potencia);
+        telemetry.addLine("Moverse Enfrente");
+        telemetry.update();
 
         while(robot.motor.isBusy()){
-
+            telemetry.addLine("Dentro del Busy");
+            telemetry.update();
         }
 
     }

@@ -185,9 +185,9 @@ public class Elevador {
 
         giroMotor.setPower(potencia);
 
-        while(giroMotor.isBusy()){
+        /*while(giroMotor.isBusy()){
 
-        }
+        }*/
 
     }
 
