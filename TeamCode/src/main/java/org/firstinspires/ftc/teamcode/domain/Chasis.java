@@ -20,9 +20,9 @@ public class Chasis {
     private DcMotor atrasIzq;
     private LinearOpMode linearOpMode;
     private BNO055IMU imu = null;
-    private static final int cuadroY = 980;
-    private static final int cuadroX = 1200;
-    private static final int cuadroG = 930;
+    public static final int cuadroY = 980;
+    public static final int cuadroX = 1200;
+    public static final int cuadroG = 930;
 
     private DcMotor motores[];
 
@@ -102,7 +102,7 @@ public class Chasis {
     }
 
 
-    public void irEnfrente(int sp, double kp){
+    /*public void irEnfrente(int sp, double kp){
         usarStopAndResetEncoders(motores);
         usarWithoutEncoder(motores);
         int pv = 0;
@@ -174,7 +174,7 @@ public class Chasis {
         usarStopAndResetEncoders(motores);
         setTargetPositionV(motores, 0);
         moverseEnfrente(0.1);
-    }
+    } */
 
     public void moverseEnfrente(double potencia , int pulsos){
         enfrenteDer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -216,7 +216,7 @@ public class Chasis {
         girarDerecha(0.8, error);
     }
 
-    public void moverseY(double potencia, double veces){
+    /*public void moverseY(double potencia, double veces){
         int error = (int)(veces * cuadroY);
         moverseEnfrente(potencia, error);
     }
@@ -234,7 +234,7 @@ public class Chasis {
     public void moverseX( double veces){
         int error = (int)(veces * cuadroX);
         moverseDerecha(1, error);
-    }
+    } */
 
     public void moverseEnfrente(double potencia){
         enfrenteDer.setPower(potencia);
