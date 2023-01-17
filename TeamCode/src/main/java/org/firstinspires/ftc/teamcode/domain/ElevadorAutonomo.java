@@ -132,13 +132,13 @@ public class ElevadorAutonomo {
     public void cerrarGarra(){
         servo.setPosition(0);
         garraCerrada = false;
-        linearOpMode.sleep(1000);
+        linearOpMode.sleep(2000);
     }
 
     public void abrirGarra(){
         servo.setPosition(1);
         garraCerrada = true;
-        linearOpMode.sleep(1000);
+        linearOpMode.sleep(2000);
     }
 
     public void elevarPulsos(final int PULSOS, double potencia){
