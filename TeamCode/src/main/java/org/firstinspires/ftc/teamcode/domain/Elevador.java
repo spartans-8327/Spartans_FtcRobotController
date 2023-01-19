@@ -26,7 +26,7 @@ public class Elevador {
 
     private final int PULSOS90 = 490;
 
- //Posicion de inicio (Puede cambiar)
+    //Posicion de inicio (Puede cambiar)
     public int pulsosGiroAct;
 
     private boolean garraCerrada = false;
@@ -159,10 +159,6 @@ public class Elevador {
         elevador.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         elevador.setPower(potencia);
-
-        elevador.setPower(0);
-
-        elevador.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 

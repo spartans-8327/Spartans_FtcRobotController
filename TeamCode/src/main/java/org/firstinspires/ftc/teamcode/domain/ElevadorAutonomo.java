@@ -14,15 +14,15 @@ public class ElevadorAutonomo {
 
     public int pulsosActual = 0;
 
-    private final int PULSOSALTO = 4150;
-    private final int PULSOSMEDIO = 2600;
-    private final int PULSOSBAJO = 1800;
+    private final int PULSOSALTO = 4300;
+    private final int PULSOSMEDIO = 3300;
+    private final int PULSOSBAJO = 2000;
     private final int PULSOSMOVERSECONO = 700;
     private final int PULSOSMOVERSE = 400;
     private final int PULSOSPISO = 0;
 
-    private final int PULSOSCONO5 = 500;
-    private final int PULSOSCONO4 = 400;
+    private final int PULSOSCONO5 = 610;
+    private final int PULSOSCONO4 = 500;
 
     private final int PULSOS90 = 490;
 
@@ -64,55 +64,39 @@ public class ElevadorAutonomo {
     }
 
     public void irAlto(double potencia){
-        int pulsosNecesarios = PULSOSALTO - pulsosActual;
-        if (pulsosNecesarios != 0 && pulsosNecesarios > 0){
-            moverseDistanciaMantener_1(potencia, pulsosNecesarios);
-        } else if (pulsosNecesarios < 0){
-            moverseDistanciaMantener_1(0.3, pulsosNecesarios);
-        }
-        pulsosActual += pulsosNecesarios;
-
-        this.elevador.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        elevador.setPower(0.6);
-        linearOpMode.sleep(500);
-        moverseDistanciaMantener_1(1, 0);
+        elevarPulsos(PULSOSALTO, potencia);
     }
 
     public void mantener(){
-        elevador.setTargetPosition(elevador.getCurrentPosition());
+        elevador.setTargetPosition(this.elevador.getCurrentPosition());
         elevador.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        elevador.setPower(0.5);
+        elevador.setPower(1);
     }
+
 
     public void irMedio(double potencia){
         elevarPulsos(PULSOSMEDIO, potencia);
-        mantener();
     }
 
 
     public void irBajo(double potencia){
         elevarPulsos(PULSOSBAJO, potencia);
-        mantener();
     }
 
     public void irMoverseCono(double potencia){
         elevarPulsos(PULSOSMOVERSECONO, potencia);
-        mantener();
     }
 
     public void irCono5(double potencia){
         elevarPulsos(PULSOSCONO5, potencia);
-        mantener();
     }
 
     public void irCono4(double potencia){
         elevarPulsos(PULSOSCONO4, potencia);
-        mantener();
     }
 
     public void irPiso(double potencia){
         elevarPulsos(PULSOSPISO, potencia);
-        mantener();
     }
 
     public void elevadorManual(double potencia, int pulsos){
@@ -132,13 +116,13 @@ public class ElevadorAutonomo {
     public void cerrarGarra(){
         servo.setPosition(0);
         garraCerrada = false;
-        linearOpMode.sleep(2000);
+        linearOpMode.sleep(500);
     }
 
     public void abrirGarra(){
         servo.setPosition(1);
         garraCerrada = true;
-        linearOpMode.sleep(2000);
+        linearOpMode.sleep(500);
     }
 
     public void elevarPulsos(final int PULSOS, double potencia){
@@ -146,17 +130,14 @@ public class ElevadorAutonomo {
         if (pulsosNecesarios != 0 && pulsosNecesarios > 0){
             moverseDistanciaMantener_1(potencia, pulsosNecesarios);
         } else if (pulsosNecesarios < 0){
-            moverseDistanciaMantener_1(0.3, pulsosNecesarios);
+            moverseDistanciaMantener_1(potencia, pulsosNecesarios);
         }
         pulsosActual += pulsosNecesarios;
     }
 
     public int girar90Grados(int veces, double potencia){
-        boolean estabaEnPsocioninicial = (pulsosActual == PULSOSPISO)? true: false;
         int pulsosNecesarios = PULSOS90*veces - pulsosGiroAct;
         if (pulsosNecesarios != 0) {
-            if (estabaEnPsocioninicial)
-                irMoverseCono(0.8);
             moverseDistanciaMantener_2(potencia, pulsosNecesarios);
             pulsosGiroAct += pulsosNecesarios;
         }
@@ -165,24 +146,14 @@ public class ElevadorAutonomo {
 
 
     private void moverseDistancia_1(double potencia , int distance){
-        elevador.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
         elevador.setTargetPosition(distance);
 
         elevador.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        elevador.setPower(potencia);
-
-        elevador.setPower(0);
-
-        elevador.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-
+        elevador.setPower(1);
     }
 
     public void moverseDistanciaMantener_1(double potencia , int distance){
-
+        elevador.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER  );
         elevador.setTargetPosition(distance);
 
         elevador.setMode(DcMotor.RunMode.RUN_TO_POSITION);

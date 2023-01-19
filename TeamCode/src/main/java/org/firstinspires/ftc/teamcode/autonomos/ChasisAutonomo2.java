@@ -25,10 +25,13 @@ public class ChasisAutonomo2 extends LinearOpMode {
 
         waitForStart();
 
-        elevador.cerrarGarra();
-        chasis.moverseDerecha(1, Chasis.cuadroX);
-        elevador.abrirGarra();
+        elevador.irAlto(1);
+        elevador.mantener();
+        sleep(6000);
 
+        elevador.irMedio(1);
+        elevador.mantener();
+        sleep(6000);
         }
 
 }
