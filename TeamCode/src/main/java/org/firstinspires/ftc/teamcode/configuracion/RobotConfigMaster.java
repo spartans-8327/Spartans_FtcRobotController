@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode.configuracion;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -26,9 +28,12 @@ public class RobotConfigMaster {
     public DcMotor atrasDer = null; //2
     public DcMotor atrasIzq = null; //3
 
-    public DcMotor[] motores= {enfrenteDer,enfrenteIzq, atrasDer, atrasIzq};
+    public DcMotor[] motores = {enfrenteDer,enfrenteIzq, atrasDer, atrasIzq};
 
     public Servo servo = null;
+    public Servo servo_2 = null;
+
+    public DistanceSensor sensor_distancia;
 
     public BNO055IMU imu;
 
@@ -60,6 +65,10 @@ public class RobotConfigMaster {
         telemetry.update();
 
         servo = hwMap.get(Servo.class, "servo");
+        servo_2 = hwMap.get(Servo.class, "servo_2");
+
+        sensor_distancia = hwMap.get(DistanceSensor.class, "sensor_distancia");
+        Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor)sensor_distancia;
 
         imu = hwMap.get(BNO055IMU.class, "imu");
 
@@ -70,6 +79,9 @@ public class RobotConfigMaster {
         IMUParameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
         IMUParameters.calibrationDataFile = "BNO055IMUCalibration.json";
         imu.initialize(IMUParameters);
+
+        telemetry.addLine("Sensores inicializados...");
+        telemetry.update();
 
 
         reversa(atrasIzq , enfrenteIzq, motor);

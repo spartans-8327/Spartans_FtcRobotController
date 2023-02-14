@@ -21,22 +21,25 @@ public class PruebaServo extends LinearOpMode {
         double posicion = 0;
 
         while (opModeIsActive()) {
-            telemetry.addData("Selecciona la posicion a la que quieres ir" , "Posicion " + posicion );
+            telemetry.addLine("Cambia la posicion del servo con los bumpers");
 
             telemetry.addData("" , "");
-            telemetry.addData("A" , "Posicion 0");
-            telemetry.addData("B" , "Posicion 0.3");
-            telemetry.addData("X" , "Posicion 0.6");
-            telemetry.addData("Y" , "Posicion 1.0");
+            telemetry.addData("Posicion del servo" , posicion);
+            telemetry.addLine("Ever es gay");
             telemetry.update();
 
-            if (gamepad1.a)
+            if (gamepad1.left_bumper) {
+                posicion -= 0.1;
+                sleep(300);
+            }
+            else if (gamepad1.right_bumper) {
+                posicion += 0.1;
+                sleep(300);
+            }
+
+            if (posicion < 0){
                 posicion = 0;
-            else if (gamepad1.b)
-                posicion = 0.3;
-            else if (gamepad1.x)
-                posicion = 0.6;
-            else if (gamepad1.y)
+            } else if (posicion > 1)
                 posicion = 1;
 
             robot.servo.setPosition(posicion);

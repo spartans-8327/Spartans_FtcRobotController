@@ -9,17 +9,17 @@ import org.firstinspires.ftc.teamcode.domain.Elevador;
 import org.firstinspires.ftc.teamcode.domain.SensorDistancia;
 
 //@Disabled
-@Autonomous(name="ChasisAutonomo2", group="Pushbot")
+@Autonomous(name="PruebaSensor", group="Pushbot")
 
-public class ChasisAutonomo2 extends LinearOpMode {
+public class PruebaSensor extends LinearOpMode {
 
     RobotConfigMaster robot = new RobotConfigMaster();
 
     @Override
     public void runOpMode() {
         RobotConfigMaster robot = new RobotConfigMaster();
-        robot.init(hardwareMap , telemetry);
-        Chasis chasis = new Chasis(robot.motores , this, robot.imu);
+        robot.init(hardwareMap, telemetry);
+        Chasis chasis = new Chasis(robot.motores, this, robot.imu);
         Elevador elevador = new Elevador(robot.motor, robot.motor_1, robot.servo, this, 2);
         SensorDistancia sensorDistancia = new SensorDistancia(robot.sensor_distancia);
         chasis.init();
@@ -27,14 +27,11 @@ public class ChasisAutonomo2 extends LinearOpMode {
 
         waitForStart();
 
-        while(opModeIsActive() && sensorDistancia.junctionDetectado() == false){
-            chasis.moverseIzquierda(0.9);
-        }
-        chasis.parar();
-        sleep(300);
-
-        chasis.moverseEnfrente(0.5, -250);
-
+        while (opModeIsActive()) {
+            telemetry.addData("Distancia", sensorDistancia.obtenerCm());
+            telemetry.addData("Junction detectado", sensorDistancia.junctionDetectado());
+            telemetry.update();
         }
 
+    }
 }

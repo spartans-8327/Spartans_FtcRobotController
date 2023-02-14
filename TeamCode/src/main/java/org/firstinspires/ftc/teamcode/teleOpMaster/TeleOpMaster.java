@@ -12,13 +12,12 @@ import org.firstinspires.ftc.teamcode.domain.Elevador;
 
 public class TeleOpMaster extends LinearOpMode {
 
-    RobotConfigMaster robot = new RobotConfigMaster();
-
     @Override
     public void runOpMode() {
+        RobotConfigMaster robot = new RobotConfigMaster();
         robot.init(hardwareMap , telemetry);
         Chasis chasis = new Chasis(robot.motores , this, robot.imu);
-        Elevador elevador = new Elevador(robot.motor, robot.motor_1, robot.servo, this, 2);
+        Elevador elevador = new Elevador(robot.motor, robot.motor_1, robot.servo, robot.servo_2, this, 2);
         chasis.init();
         telemetry.update();
         final double velocidad = 0.5;
@@ -62,6 +61,7 @@ public class TeleOpMaster extends LinearOpMode {
             telemetry.addData("Stic derecho 2 X " , stickDerechoX_2);
 
             telemetry.addData("Pos actual", elevador.pulsosGiroAct / 490);
+            telemetry.addData("Pos elevador" , elevador.elevador.getCurrentPosition());
 
 
             telemetry.update();
@@ -91,44 +91,54 @@ public class TeleOpMaster extends LinearOpMode {
 
             //Control de giro (Automático)
             if (robot.motor_1.isBusy() == false && gamepad2.left_trigger < 0.9){
-                if (gamepad2.dpad_down)
+                if (gamepad2.a)
                     elevador.girar_0(0.5);
-                else if (gamepad2.dpad_left)
+                else if (gamepad2.x)
                     elevador.girar_1(0.5);
-                else if (gamepad2.dpad_up)
+                else if (gamepad2.y)
                     elevador.girar_2(0.5);
-                else if (gamepad2.dpad_right)
+                else if (gamepad2.b)
                     elevador.girar_3(0.5);
             }
 
             //Control de giro (Manual)
+            int contadorManual = 0;
             if (robot.motor_1.isBusy() == false && gamepad2.left_trigger >= 0.9){
                 if (gamepad2.dpad_right){
-                    elevador.girarManual(0.4, 200);
+                    elevador.girarManual(0.4, 100);
+                    ++contadorManual;
                 } else if(gamepad2.dpad_left){
-                    elevador.girarManual(0.4, -200);
+                    elevador.girarManual(0.4, -100);
+                    --contadorManual;
                 }
             }
 
-            
+            int pulsosTopeSuperior = 3600;
+            int pulsosTopeInferior = 0;
+
             //Control de elevador (Manual)
-            if (stickIzquierdoY_2 == 1) {
+            if (stickIzquierdoY_2 == 1 && elevador.elevador.getCurrentPosition() < pulsosTopeSuperior) {
                 robot.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 robot.motor.setPower(1);
                 telemetry.addLine("Subiendo");
                 cambio = true;
             }
-            else if (stickIzquierdoY_2 == -1 && robot.motor.getCurrentPosition() > 0) {
+
+
+            else if (stickIzquierdoY_2 == -1 && elevador.elevador.getCurrentPosition() > pulsosTopeInferior) {
                 robot.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.motor.setPower(-1);
+                robot.motor.setPower(-0.7);
                 telemetry.addLine("Bajando");
                 cambio = true;
             }
-            else if (cambio){
-                robot.motor.setTargetPosition(robot.motor.getCurrentPosition());
-                robot.motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                cambio = false;
-            }
+
+                else if (cambio){
+                    robot.motor.setTargetPosition(robot.motor.getCurrentPosition());
+                    robot.motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    cambio = false;
+                }
+
+
             else {
                 robot.motor.setPower(1);
             }

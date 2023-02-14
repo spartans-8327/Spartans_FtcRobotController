@@ -9,6 +9,7 @@ public class Elevador {
     public DcMotor giroMotor;
 
     Servo servo;
+    Servo servo_2;
 
     private LinearOpMode linearOpMode;
 
@@ -24,7 +25,7 @@ public class Elevador {
     private final int PULSOSCONO5 = 300;
     private final int PULSOSCONO4 = 150;
 
-    private final int PULSOS90 = 490;
+    public final int PULSOS90 = 490;
 
     //Posicion de inicio (Puede cambiar)
     public int pulsosGiroAct;
@@ -45,6 +46,15 @@ public class Elevador {
         this.giroMotor = giroMotor;
         this.servo = servo;
         this.linearOpMode = linearOpMode;
+    }
+
+    public Elevador(DcMotor elevador , DcMotor giroMotor, Servo servo, Servo servo_2, LinearOpMode linearOpMode, int posGiroAct){
+        this.elevador = elevador;
+        this.giroMotor = giroMotor;
+        this.servo = servo;
+        this.servo_2 = servo_2;
+        this.linearOpMode = linearOpMode;
+        this.pulsosGiroAct = posGiroAct * PULSOS90;
     }
 
     public void girar_0(double potencia){
@@ -119,12 +129,14 @@ public class Elevador {
 
     public void cerrarGarra(){
         servo.setPosition(0);
+        servo_2.setPosition(0.2);
         garraCerrada = false;
 
     }
 
     public void abrirGarra(){
-        servo.setPosition(1);
+        servo.setPosition(0.2);
+        servo_2.setPosition(0);
         garraCerrada = true;
     }
 
@@ -139,11 +151,8 @@ public class Elevador {
     }
 
     public int girar90Grados(int veces, double potencia){
-        boolean estabaEnPsocioninicial = (pulsosActual == PULSOSPISO)? true: false;
         int pulsosNecesarios = PULSOS90*veces - pulsosGiroAct;
         if (pulsosNecesarios != 0) {
-            if (estabaEnPsocioninicial)
-                irMoverseCono(0.8);
             moverseDistanciaMantener_2(potencia, pulsosNecesarios);
             pulsosGiroAct += pulsosNecesarios;
         }

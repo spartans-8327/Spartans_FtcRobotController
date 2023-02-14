@@ -26,6 +26,13 @@ public class Chasis {
 
     private DcMotor motores[];
 
+    public Chasis(DcMotor enfrenteDer, DcMotor enfrenteIzq, DcMotor atrasDer, DcMotor atrasIzq){
+        this.enfrenteDer = enfrenteDer;
+        this.enfrenteIzq = enfrenteIzq;
+        this.atrasDer = atrasDer;
+        this.atrasIzq = atrasIzq;
+    }
+
     public Chasis(DcMotor[] motores, LinearOpMode linearOpMode, BNO055IMU imu){
         this.linearOpMode = linearOpMode;
         this.motores = motores;
@@ -101,80 +108,37 @@ public class Chasis {
         return velocidad;
     }
 
+    /*public void moverseEnfrenteProporcional(double kp, int pulsos){
+        enfrenteDer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        enfrenteIzq.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        atrasDer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        atrasIzq.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-    /*public void irEnfrente(int sp, double kp){
-        usarStopAndResetEncoders(motores);
-        usarWithoutEncoder(motores);
-        int pv = 0;
-        int i = 0;
+        enfrenteDer.setTargetPosition(-pulsos);
+        enfrenteIzq.setTargetPosition(-pulsos);
+        atrasDer.setTargetPosition(-pulsos);
+        atrasIzq.setTargetPosition(-pulsos);
 
-        while(sp != pv && linearOpMode.opModeIsActive()){
-            pv = motores[i].getCurrentPosition();
-            int error = sp - pv;
-            double power = kp * error;
-            moverseEnfrente(power);
-            i = (i < 4)? i++ : 0;
+        enfrenteDer.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        enfrenteIzq.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        atrasDer.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        atrasIzq.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        while(enfrenteDer.isBusy() && enfrenteIzq.isBusy() && atrasDer.isBusy() && atrasIzq.isBusy()){
+            moverseEnfrente();
         }
-            usarRunToPosition(motores);
-            usarStopAndResetEncoders(motores);
-            setTargetPositionV(motores, 0);
-            moverseEnfrente(0.1);
-    }
 
-    public void irAtras(int sp, double kp){
-        usarStopAndResetEncoders(motores);
-        usarWithoutEncoder(motores);
-        sp = -sp;
-        int pv = 0;
-        int i = 0;
+        parar();
 
-        while(sp != pv && linearOpMode.opModeIsActive()){
-            pv = motores[i].getCurrentPosition();
-            int error = sp - pv;
-            double power = kp * error;
-            moverseEnfrente(power);
-            i = (i < 4)? i++ : 0;
-        }
-        usarRunToPosition(motores);
-        usarStopAndResetEncoders(motores);
-        setTargetPositionV(motores, 0);
-        moverseAtras(0.1);
-    }
+        enfrenteDer.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        enfrenteIzq.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        atrasDer.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        atrasIzq.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }*/
 
-    public void irIzquierda(int sp, double kp){
-        usarStopAndResetEncoders(motores);
-        usarWithoutEncoder(motores);
-        int pv = 0;
-        int i = 0;
 
-        while(sp != pv && linearOpMode.opModeIsActive()){
-            pv = motores[0].getCurrentPosition();
-            int error = sp - pv;
-            double power = kp * error;
-            moverseDerecha(power);
-        }
-        usarRunToPosition(motores);
-        usarStopAndResetEncoders(motores);
-        setTargetPositionV(motores, 0);
-        moverseEnfrente(0.1);
-    }
 
-    public void irDerecha(int sp, double kp){
-        usarStopAndResetEncoders(motores);
-        usarWithoutEncoder(motores);
-        int pv = 0;
-
-        while(sp != pv && linearOpMode.opModeIsActive()){
-            pv = motores[1].getCurrentPosition();
-            int error = sp - pv;
-            double power = kp * error;
-            moverseIzquierda(power);
-        }
-        usarRunToPosition(motores);
-        usarStopAndResetEncoders(motores);
-        setTargetPositionV(motores, 0);
-        moverseEnfrente(0.1);
-    } */
 
     public void moverseEnfrente(double potencia , int pulsos){
         enfrenteDer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -216,25 +180,6 @@ public class Chasis {
         girarDerecha(0.8, error);
     }
 
-    /*public void moverseY(double potencia, double veces){
-        int error = (int)(veces * cuadroY);
-        moverseEnfrente(potencia, error);
-    }
-
-    public void moverseX(double potencia, double veces){
-        int error = (int)(veces * cuadroX);
-        moverseDerecha(potencia, error);
-    }
-
-    public void moverseY(double veces){
-        int error = (int)(veces * cuadroY);
-        moverseEnfrente(0.3, error);
-    }
-
-    public void moverseX( double veces){
-        int error = (int)(veces * cuadroX);
-        moverseDerecha(1, error);
-    } */
 
     public void moverseEnfrente(double potencia){
         enfrenteDer.setPower(potencia);
